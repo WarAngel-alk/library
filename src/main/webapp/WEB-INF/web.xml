@@ -1,7 +1,99 @@
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+    <display-name>Archetype Created Web Application</display-name>
+    
+    <servlet>
+        <servlet-name>allBooksController</servlet-name>
+        <servlet-class>com.my.controllers.books.AllBooksController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>bookByIdController</servlet-name>
+        <servlet-class>com.my.controllers.books.BookByIdController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>allQuotesController</servlet-name>
+        <servlet-class>com.my.controllers.quotes.AllQuotesController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>quoteByIdController</servlet-name>
+        <servlet-class>com.my.controllers.quotes.QuoteByIdController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>signInController</servlet-name>
+        <servlet-class>com.my.controllers.registration.SignInController</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>signUpController</servlet-name>
+        <servlet-class>com.my.controllers.registration.SignUpController</servlet-class>
+    </servlet>
+
+
+
+    <servlet>
+        <servlet-name>allBooksView</servlet-name>
+        <servlet-class>com.my.views.books.AllBooksView</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>bookByIdView</servlet-name>
+        <servlet-class>com.my.views.books.BookByIdView</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>allQuotesView</servlet-name>
+        <servlet-class>com.my.views.quotes.AllQuotesView</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>quoteByIdView</servlet-name>
+        <servlet-class>com.my.views.quotes.QuoteByIdView</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>signInView</servlet-name>
+        <servlet-class>com.my.views.registration.SignInView</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>signUpView</servlet-name>
+        <servlet-class>com.my.views.registration.SignUpView</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>allBooksController</servlet-name>
+        <url-pattern>/books</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>bookByIdController</servlet-name>
+        <url-pattern>/books/id/</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>allQuotesController</servlet-name>
+        <url-pattern>/quotes</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>quoteByIdController</servlet-name>
+        <url-pattern>/quotes/id/</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>signInController</servlet-name>
+        <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>signUpController</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
 </web-app>
