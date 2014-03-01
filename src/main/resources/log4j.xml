@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://jakarta.apache.org/log4j/ ">
+
+    <appender name="debugApp" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="../library-logs/debugApp.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{ISO8601} [%-5p][%-7.7t] [%32.32c{-2}] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="debug" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="../library-logs/debug.log"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-7.7t] [%50.50c] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="app" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="../library-logs/app.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <param name="Threshold" value="INFO"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{ISO8601} [%-5p][%-7.7t] [%40.40c{-2}] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="system" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="../library-logs/system.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <param name="Threshold" value="INFO"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-7.7t] [%50.50c] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="dao" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="../library-logs/dao.log"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{ISO8601} [%-5p][%-7.7t] [%40.40c{-3}] - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.my">
+        <level value="TRACE"/>
+        <appender-ref ref="debugApp"/>
+        <appender-ref ref="app"/>
+    </logger>
+
+    <logger name="com.my.dao">
+        <level value="TRACE"/>
+        <appender-ref ref="dao"/>
+    </logger>
+
+    <root>
+        <priority value="TRACE"/>
+        <appender-ref ref="system"/>
+        <appender-ref ref="debug"/>
+    </root>
+
+</log4j:configuration>
