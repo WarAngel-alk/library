@@ -26,6 +26,6 @@ public class SignInController extends HttpServlet {
             throws ServletException, IOException {
         logger.info("Got request in SignInController");
         logger.info("Request redirected to SignInView");
-        getServletContext().getNamedDispatcher("signInView").forward(req, resp);
+        getServletContext().getRequestDispatcher("/jsp/SignIn.jsp").forward(req, resp);
     }
 }

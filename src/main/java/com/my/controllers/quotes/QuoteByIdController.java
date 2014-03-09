@@ -26,6 +26,6 @@ public class QuoteByIdController extends HttpServlet {
             throws ServletException, IOException {
         logger.info("Got request in QuoteByIdController");
         logger.info("Request redirected to QuoteByIdView");
-        getServletContext().getNamedDispatcher("quoteByIdView").forward(req, resp);
+        getServletContext().getRequestDispatcher("/jsp/QuoteById.jsp").forward(req, resp);
     }
 }

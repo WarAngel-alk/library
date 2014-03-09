@@ -26,6 +26,6 @@ public class AllBooksController extends HttpServlet {
             throws ServletException, IOException {
         logger.info("Got request in AllBooksController");
         logger.info("Request redirected to AllBooksView");
-        getServletContext().getNamedDispatcher("allBooksView").forward(req, resp);
+        getServletContext().getRequestDispatcher("/jsp/AllBooks.jsp").forward(req, resp);
     }
 }

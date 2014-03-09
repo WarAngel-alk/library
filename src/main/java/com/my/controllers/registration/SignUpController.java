@@ -26,6 +26,6 @@ public class SignUpController extends HttpServlet {
             throws ServletException, IOException {
         logger.info("Got request in SignUpController");
         logger.info("Request redirected to SignUpView");
-        getServletContext().getNamedDispatcher("signUpView").forward(req, resp);
+        getServletContext().getRequestDispatcher("/jsp/SignUp.jsp").forward(req, resp);
     }
 }
