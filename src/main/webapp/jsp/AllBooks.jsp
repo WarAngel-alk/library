@@ -9,8 +9,13 @@
 <html>
 <head>
     <title>All books</title>
+    <%@ include file="includes/head.jsp" %>
 </head>
 <body>
-<p style="font-size: 20px;">All books</p>
+    <%@ include file="includes/header.jsp" %>
+
+    <div class="alert alert-info">All book tests bootstrap!</div>
+
+    <%@ include file="includes/footer.jsp" %>
 </body>
 </html>
