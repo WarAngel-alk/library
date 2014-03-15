@@ -25,7 +25,9 @@ public class AllQuotesController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         logger.info("Got request in AllQuotesController");
+
         logger.info("Request redirected to AllQuotesView");
+        req.setAttribute("currentPage", "allQuotes");
         getServletContext().getRequestDispatcher("/jsp/AllQuotes.jsp").forward(req, resp);
     }
 }
