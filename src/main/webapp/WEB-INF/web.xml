@@ -36,36 +36,6 @@
     </servlet>
 
 
-
-    <servlet>
-        <servlet-name>allBooksView</servlet-name>
-        <servlet-class>com.my.views.books.AllBooksView</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>bookByIdView</servlet-name>
-        <servlet-class>com.my.views.books.BookByIdView</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>allQuotesView</servlet-name>
-        <servlet-class>com.my.views.quotes.AllQuotesView</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>quoteByIdView</servlet-name>
-        <servlet-class>com.my.views.quotes.QuoteByIdView</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>signInView</servlet-name>
-        <servlet-class>com.my.views.registration.SignInView</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>signUpView</servlet-name>
-        <servlet-class>com.my.views.registration.SignUpView</servlet-class>
-    </servlet>
     
     <servlet-mapping>
         <servlet-name>allBooksController</servlet-name>
@@ -96,4 +66,11 @@
         <servlet-name>signUpController</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
+
+    <resource-ref>
+        <description>DB Connection</description>
+        <res-ref-name>jdbc/LibraryDS</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 </web-app>

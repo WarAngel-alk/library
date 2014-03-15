@@ -1,5 +1,7 @@
 package com.my.bussiness.beans;
 
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Vlad
@@ -9,26 +11,27 @@ package com.my.bussiness.beans;
  */
 public class Quote {
 
-    private String bookTitle;
+    private long id;
+    private long bookId;
     private String text;
-    private String author;
-    private int id;
-    private int bookId;
+    private Date addDate;
+    private String bookTitle;
+    private String bookAuthor;
 
-    public Quote() {
-        bookTitle = "<Not specified>";
-        text = "<Not specified>";
-        author = "<Not specified>";
-        id = 0;
-        bookId = 0;
+    public long getId() {
+        return id;
     }
 
-    public String getBookTitle() {
-        return bookTitle;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
+    public long getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(long bookId) {
+        this.bookId = bookId;
     }
 
     public String getText() {
@@ -39,27 +42,28 @@ public class Quote {
         this.text = text;
     }
 
-    public String getAuthor() {
-        return author;
+    public Date getAddDate() {
+        return addDate;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAddDate(Date addDate) {
+        this.addDate = addDate;
     }
 
-    public int getId() {
-        return id;
+    public String getBookTitle() {
+        return bookTitle;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
-    public int getBookId() {
-        return bookId;
+    public String getBookAuthor() {
+        return bookAuthor;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setBookAuthor(String bookAuthor) {
+        this.bookAuthor = bookAuthor;
     }
+
 }

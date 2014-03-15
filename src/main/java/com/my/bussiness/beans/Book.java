@@ -11,54 +11,23 @@ import java.util.Date;
  */
 public class Book {
 
+    private long id;
     private String title;
     private String author;
-    private int rating;
-    private int year;
+    private long rating;
+    private long publishYear;
+    private Date addDate;
     private String comment;
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
     private String pictureUrl;
-    private int userId;
-    private String userName;
-    private int id;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
-    }
-
-    public Book() {
-        title = "<Not specified>";
-        author = "<Not specified>";
-        rating = 0;
-        year = 0;
-        comment = "<Not specified>";
-        startDate = "<Not specified>";
-        endDate = "<Not specified>";
-        pictureUrl = "<Not specified>";
-        userId = 0;
-        userName = "<Not founded>";
-        id = 0;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getTitle() {
@@ -77,20 +46,28 @@ public class Book {
         this.author = author;
     }
 
-    public int getRating() {
+    public long getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(long rating) {
         this.rating = rating;
     }
 
-    public int getYear() {
-        return year;
+    public long getPublishYear() {
+        return publishYear;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setPublishYear(long publishYear) {
+        this.publishYear = publishYear;
+    }
+
+    public Date getAddDate() {
+        return addDate;
+    }
+
+    public void setAddDate(Date addDate) {
+        this.addDate = addDate;
     }
 
     public String getComment() {
@@ -101,19 +78,19 @@ public class Book {
         this.comment = comment;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -124,4 +101,5 @@ public class Book {
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
+
 }

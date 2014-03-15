@@ -9,16 +9,17 @@ package com.my.bussiness.beans;
  */
 public class User {
 
+    private long id;
     private String name;
     private String passwordHash;
-    private int id;
     private String email;
 
-    public User() {
-        name = "<Not specified>";
-        passwordHash = "<Not specified>";
-        id = 0;
-        email = "<Not specified>";
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -35,14 +36,6 @@ public class User {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getEmail() {
