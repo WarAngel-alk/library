@@ -1,4 +1,4 @@
-package com.my.controllers.books;
+package com.my.controllers.quotes;
 
 import org.apache.log4j.Logger;
 
@@ -13,21 +13,22 @@ import static com.my.util.LogUtil.getCurrentClass;
 /**
  * Created with IntelliJ IDEA.
  * User: Vlad
- * Date: 26.02.14
- * Time: 21:15
+ * Date: 15.03.14
+ * Time: 12:49
  * To change this template use File | Settings | File Templates.
  */
-public class AllBooksController extends HttpServlet {
+public class AddQuoteController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(getCurrentClass());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        logger.info("Got request in AllBooksController");
+        logger.info("Got request in AddQuoteController");
 
-        logger.info("Request redirected to AllBooksView");
-        req.setAttribute("currentPage", "books");
-        getServletContext().getRequestDispatcher("/jsp/AllBooks.jsp").forward(req, resp);
+        logger.info("Request redirected to AddQuoteView");
+        req.setAttribute("currentPage", "addQuote");
+        getServletContext().getRequestDispatcher("/jsp/AddQuote.jsp").forward(req, resp);
     }
+
 }

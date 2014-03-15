@@ -1,4 +1,4 @@
-package com.my.controllers.registration;
+package com.my.controllers.books;
 
 import org.apache.log4j.Logger;
 
@@ -13,19 +13,20 @@ import static com.my.util.LogUtil.getCurrentClass;
 /**
  * Created with IntelliJ IDEA.
  * User: Vlad
- * Date: 26.02.14
- * Time: 21:15
+ * Date: 15.03.14
+ * Time: 12:50
  * To change this template use File | Settings | File Templates.
  */
-public class SignInController extends HttpServlet {
-
+public class AddBookController extends HttpServlet {
     private static final Logger logger = Logger.getLogger(getCurrentClass());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        logger.info("Got request in SignInController");
-        logger.info("Request redirected to SignInView");
-        getServletContext().getRequestDispatcher("/jsp/SignIn.jsp").forward(req, resp);
+        logger.info("Got request in AddBookController");
+
+        logger.info("Request redirected to AddBookView");
+        req.setAttribute("currentPage", "addBook");
+        getServletContext().getRequestDispatcher("/jsp/AddBook.jsp").forward(req, resp);
     }
 }
