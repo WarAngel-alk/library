@@ -5,9 +5,9 @@
         String lblBooksClass = "header-link-passive";
         String lblQuotesClass = "header-link-passive";
 
-        if (currentPage.equals("books")) {
+        if (currentPage.equals("allBooks")) {
             lblBooksClass = "header-link-active";
-        } else if(currentPage.equals("quotes")) {
+        } else if(currentPage.equals("allQuotes")) {
             lblQuotesClass = "header-link-active";
         }
     %>
