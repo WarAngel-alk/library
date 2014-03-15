@@ -9,8 +9,10 @@
 <html>
 <head>
     <title>Book by id</title>
+    <%@ include file="includes/head.jsp" %>
 </head>
 <body>
-<p style="font-size: 20px;">Book by id</p>
+    <%@ include file="includes/header.jsp" %>
+    <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 </body>
 </html>

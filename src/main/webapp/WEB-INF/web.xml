@@ -44,7 +44,7 @@
 
     <servlet-mapping>
         <servlet-name>bookByIdController</servlet-name>
-        <url-pattern>/books/id/</url-pattern>
+        <url-pattern>/books/id</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
@@ -54,7 +54,7 @@
     
     <servlet-mapping>
         <servlet-name>quoteByIdController</servlet-name>
-        <url-pattern>/quotes/id/</url-pattern>
+        <url-pattern>/quotes/id</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>

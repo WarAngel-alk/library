@@ -8,9 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Add quote</title>
+    <%@ include file="includes/head.jsp" %>
 </head>
 <body>
+    <%@ include file="includes/header.jsp" %>
+    <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
 </body>
 </html>

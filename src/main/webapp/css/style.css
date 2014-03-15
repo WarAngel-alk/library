@@ -1,0 +1,36 @@
+.header-line {
+    background-color: #29435e;
+    /*height: 50px;*/
+}
+
+.header-link {
+    font-size: 26pt;
+    background-color: inherit;
+
+    display: inline-table;
+    vertical-align: middle;
+
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.header-link-active {
+    color: #78c42a;
+    text-decoration: underline;
+}
+
+.header-link-passive {
+    color: #3d913a;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+a:hover {
+    color: inherit;
+}
+

@@ -13,9 +13,7 @@
 </head>
 <body>
     <%@ include file="includes/header.jsp" %>
+    <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
-    <div class="alert alert-info">All book tests bootstrap!</div>
-
-    <%@ include file="includes/footer.jsp" %>
 </body>
 </html>
