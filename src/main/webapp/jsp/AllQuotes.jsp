@@ -1,3 +1,5 @@
+<%@ page import="com.my.bussiness.beans.Quote" %>
+<%@ page import="com.my.dao.QuotesDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -14,5 +16,13 @@
 <body>
     <%@ include file="includes/header.jsp" %>
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
+
+    <%
+        config.getServletContext().setAttribute("quoteToDisplay", new QuotesDao().selectById(1));
+    %>
+    <jsp:include page="/jsp/includes/quote.jsp" flush="true" />
+    <jsp:include page="/jsp/includes/quote.jsp" flush="true" />
+    <%--<%@ include file="includes/quote.jsp" %>--%>
+    <%--<%@ include file="includes/quote.jsp" %>--%>
 </body>
 </html>

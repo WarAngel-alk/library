@@ -2,11 +2,9 @@ package com.my.dao;
 
 import com.my.bussiness.beans.Book;
 import com.my.bussiness.beans.Quote;
-import com.my.bussiness.beans.User;
 import com.my.dao.db.ConnectionManager;
 import org.apache.log4j.Logger;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,6 +22,8 @@ import static com.my.util.LogUtil.getCurrentClass;
  * To change this template use File | Settings | File Templates.
  */
 public class QuotesDao {
+
+    // TODO: Make possible adding quotes without linking with book
 
     private static final Logger log = Logger.getLogger(getCurrentClass());
 
@@ -90,14 +90,13 @@ public class QuotesDao {
         try {
 
             st = con.createStatement();
-            log.info("Executing query for database to get user with id=" + id);
+            log.info("Executing query for database to get quote with id=" + id);
             rs = st.executeQuery(
                 "SELECT " +
                     "`quotes_id`, `quotes_book_id`, `quotes_text`, `quotes_add_datetime`," +
-                    "`books_title`, `books_author`," +
+                    "`books_title`, `books_author` " +
                 "FROM `quotes` " +
-                    "JOIN `books` ON `quotes_book_id`=`books_id`" +
-                    "JOIN `users` ON `books_user_id`=`users_id`" +
+                    "JOIN `books` ON `quotes_book_id`=`books_id` " +
                 "WHERE " +
                     "`quotes_id`=" + id
             );

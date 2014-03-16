@@ -1,17 +1,13 @@
 package com.my.dao;
 
 import com.my.bussiness.beans.Book;
-import com.my.bussiness.beans.User;
 import com.my.dao.db.ConnectionManager;
-import javafx.scene.input.DataFormat;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
