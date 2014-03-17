@@ -24,11 +24,31 @@
         <servlet-name>quoteByIdController</servlet-name>
         <servlet-class>com.my.controllers.quotes.QuoteByIdController</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>addBookController</servlet-name>
+        <servlet-class>com.my.controllers.books.AddBookController</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>addQuoteController</servlet-name>
+        <servlet-class>com.my.controllers.quotes.AddQuoteController</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>quotesByBookController</servlet-name>
+        <servlet-class>com.my.controllers.quotes.QuotesByBookController</servlet-class>
+    </servlet>
 
     
     <servlet-mapping>
         <servlet-name>allBooksController</servlet-name>
         <url-pattern>/books</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>addBookController</servlet-name>
+        <url-pattern>/books/add/</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -42,8 +62,18 @@
     </servlet-mapping>
     
     <servlet-mapping>
+        <servlet-name>addQuoteController</servlet-name>
+        <url-pattern>/quotes/add/</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
         <servlet-name>quoteByIdController</servlet-name>
-        <url-pattern>/quotes/id</url-pattern>
+        <url-pattern>/quotes/id/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>quotesByBookController</servlet-name>
+        <url-pattern>/books/id/*/quotes/</url-pattern>
     </servlet-mapping>
 
     <resource-ref>
