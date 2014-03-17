@@ -1,5 +1,7 @@
 package com.my.controllers.quotes;
 
+import com.my.bussiness.beans.Quote;
+import com.my.dao.QuotesDao;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

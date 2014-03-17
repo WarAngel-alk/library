@@ -33,20 +33,21 @@ public class QuotesDao {
         Statement st = null;
         ResultSet rs = null;
 
+        String sql =
+            "SELECT " +
+                "`quotes_id`, `quotes_book_id`, `quotes_text`, `quotes_add_datetime`, " +
+                "`books_title`, `books_author` " +
+            "FROM " +
+                "`quotes` " +
+                "JOIN `books` ON `quotes`.`quotes_book_id`=`books`.`books_id`";
+
         List<Quote> resultList = new ArrayList<Quote>();
 
         try {
 
             st = con.createStatement();
-            log.debug("Executing query to DB");
-            rs = st.executeQuery(
-                "SELECT " +
-                    "`quotes_id`, `quotes_book_id`, `quotes_text`, `quotes_add_datetime`, " +
-                    "`books_title`, `books_author`" +
-                "FROM " +
-                    "`quotes` " +
-                    "JOIN `books` ON `quotes`.`quotes_book_id`=`books`.`books_id` " +
-                    "JOIN `users` ON `books`.`books_user_id`=`users`.`users_id`");
+            log.debug("Executing query to DB to select all quotes");
+            rs = st.executeQuery(sql);
 
             log.debug("Creation list with all quotes");
             while (rs.next()) {
@@ -63,7 +64,7 @@ public class QuotesDao {
             }
 
         } catch (SQLException e1) {
-            log.warn("Error while getting data from DB", e1);
+            log.warn("Error while getting data from DB. SQL: " + sql, e1);
         } catch (Exception e2) {
             log.warn("Unknown error while getting data from DB", e2);
         } finally {
