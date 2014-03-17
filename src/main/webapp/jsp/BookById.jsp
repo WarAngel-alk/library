@@ -20,10 +20,11 @@
 
     <div class="col-md-10 col-md-offset-1">
         <%
-            String[] pathArray = config.getServletContext().getContextPath().split("/");
-            Logger.getLogger("test").error(config.getServletContext().getContextPath());
-    //        long id = Long.parseLong(pathArray[pathArray.length - 1]);
-            long id = 1;
+//            String[] pathArray = request.getRequestURI().split("/");
+//            Logger.getLogger("test").error(request.getRequestURI());
+//            long id = Long.parseLong(pathArray[pathArray.length - 1]);
+//            long id = 1;
+            long id = (Long) request.getAttribute("bookToDisplayId");
             Book book = new BooksDao().selectById(id);
             config.getServletContext().setAttribute("bookToDisplay", book);
         %>

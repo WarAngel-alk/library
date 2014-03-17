@@ -26,6 +26,11 @@ public class BookByIdController extends HttpServlet {
             throws ServletException, IOException {
         logger.info("Got request in BookByIdController");
 
+        String[] pathArray = req.getRequestURI().split("/");
+//            Logger.getLogger("test").error(request.getRequestURI());
+        long id = Long.parseLong(pathArray[pathArray.length - 1]);
+        req.setAttribute("bookToDisplayId", id);
+
         logger.info("Request redirected to BookByIdView");
         req.setAttribute("currentPage", "bookById");
         getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
