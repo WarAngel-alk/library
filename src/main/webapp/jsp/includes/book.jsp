@@ -4,7 +4,7 @@
 <%--<jsp:useBean id="quoteToDisplay" class="com.my.bussiness.beans.Quote" scope="request"/>--%>
 <%  Book bookToDisplay = (Book) config.getServletContext().getAttribute("bookToDisplay");
     DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
-    String pictPath = (bookToDisplay.getPictureUrl() == null) ? "img/logo.jpg" : bookToDisplay.getPictureUrl();
+    String pictPath = (bookToDisplay.getPictureUrl() == null) ? "/library/img/logo.jpg" : bookToDisplay.getPictureUrl();
 %>
 
 <div class="row">
@@ -16,7 +16,7 @@
         <div style="float: right;">
             <span class="book-item-info">Added: <%=dateFormat.format(bookToDisplay.getAddDate())%></span>
         </div>
-        <a href="books/id/<%=bookToDisplay.getId()%>">
+        <a href="/library/books/id/<%=bookToDisplay.getId()%>">
             <div>
                 <span class="book-item-param-name">Title:</span>
                 <span class="book-item-param-value"><%=bookToDisplay.getTitle()%></span>

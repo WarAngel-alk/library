@@ -78,7 +78,7 @@ public class BooksDao {
         return resultList;
     }
 
-    public Book selectById(int id) {
+    public Book selectById(long id) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
         Statement st = null;

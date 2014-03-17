@@ -12,10 +12,10 @@
 <html>
 <head>
     <title>All books</title>
-    <%@ include file="includes/head.jsp" %>
+    <%@ include file="/jsp/includes/head.jsp" %>
 </head>
 <body>
-    <%@ include file="includes/header.jsp" %>
+    <%@ include file="/jsp/includes/header.jsp" %>
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
     <div class="col-md-10 col-md-offset-1">
