@@ -1,5 +1,8 @@
 <%@ page import="com.my.bussiness.beans.Quote" %>
 <%@ page import="com.my.dao.QuotesDao" %>
+<%@ page import="com.my.dao.BooksDao" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -17,12 +20,26 @@
     <%@ include file="includes/header.jsp" %>
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
-    <%
-        config.getServletContext().setAttribute("quoteToDisplay", new QuotesDao().selectById(1));
-    %>
-    <jsp:include page="/jsp/includes/quote.jsp" flush="true" />
-    <jsp:include page="/jsp/includes/quote.jsp" flush="true" />
-    <%--<%@ include file="includes/quote.jsp" %>--%>
-    <%--<%@ include file="includes/quote.jsp" %>--%>
+
+
+    <div class="col-md-10 col-md-offset-1">
+        <%
+            List<Quote> quoteList = new QuotesDao().selectAll();
+
+        for (Quote q : quoteList) {
+            config.getServletContext().setAttribute("quoteToDisplay", q);
+        %>
+        <div class="row quote-item-block">
+            <jsp:include page="/jsp/includes/quote.jsp" flush="true" />
+        </div>
+        <% } %>
+    </div>
+    <%--<br><br><br>--%>
+    <%--<div class="col-md-10 col-md-offset-1">--%>
+        <%--<div class="row book-item-block">--%>
+            <%--<jsp:include page="includes/book.jsp" flush="true" />--%>
+            <%--&lt;%&ndash;<%@ include file="includes/book.jsp" %>&ndash;%&gt;--%>
+        <%--</div>--%>
+    <%--</div>--%>
 </body>
 </html>
