@@ -38,7 +38,7 @@ public class BooksDao {
             log.info("Executing query to DB to select all books");
             rs = st.executeQuery(
                 "SELECT " +
-                    "`books_book_id`, `books_title`, `books_author`, " +
+                    "`books_id`, `books_title`, `books_author`, " +
                     "`books_rating`, `books_comment`, `books_start_date`, `books_end_date`, " +
                     "`books_picture_url`, `books_add_date` " +
                 "FROM " +

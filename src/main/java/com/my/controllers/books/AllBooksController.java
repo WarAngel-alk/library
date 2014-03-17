@@ -27,7 +27,7 @@ public class AllBooksController extends HttpServlet {
         logger.info("Got request in AllBooksController");
 
         logger.info("Request redirected to AllBooksView");
-        req.setAttribute("currentPage", "books");
+        req.setAttribute("currentPage", "allBooks");
         getServletContext().getRequestDispatcher("/jsp/AllBooks.jsp").forward(req, resp);
     }
 }
