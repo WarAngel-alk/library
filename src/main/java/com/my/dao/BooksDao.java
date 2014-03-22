@@ -50,7 +50,7 @@ public class BooksDao {
                 book.setId(rs.getLong(1));
                 book.setTitle(rs.getString(2));
                 book.setAuthor(rs.getString(3));
-                book.setRating(rs.getInt(4));
+                book.setRating(rs.getLong(4));
                 book.setComment(rs.getString(5));
                 book.setStartDate(rs.getDate(6));
                 book.setEndDate(rs.getDate(7));
@@ -105,7 +105,7 @@ public class BooksDao {
                 book.setId(rs.getLong(1));
                 book.setTitle(rs.getString(2));
                 book.setAuthor(rs.getString(3));
-                book.setRating(rs.getInt(4));
+                book.setRating(rs.getLong(4));
                 book.setComment(rs.getString(5));
                 book.setStartDate(rs.getDate(6));
                 book.setEndDate(rs.getDate(7));

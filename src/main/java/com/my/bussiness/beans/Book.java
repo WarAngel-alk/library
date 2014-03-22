@@ -11,22 +11,22 @@ import java.util.Date;
  */
 public class Book {
 
-    private long id;
+    private Long id;
     private String title;
     private String author;
-    private long rating;
-    private long publishYear;
+    private Long rating;
+    private Long publishYear;
     private Date addDate;
     private String comment;
     private Date startDate;
     private Date endDate;
     private String pictureUrl;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,19 +46,19 @@ public class Book {
         this.author = author;
     }
 
-    public long getRating() {
+    public Long getRating() {
         return rating;
     }
 
-    public void setRating(long rating) {
+    public void setRating(Long rating) {
         this.rating = rating;
     }
 
-    public long getPublishYear() {
+    public Long getPublishYear() {
         return publishYear;
     }
 
-    public void setPublishYear(long publishYear) {
+    public void setPublishYear(Long publishYear) {
         this.publishYear = publishYear;
     }
 
