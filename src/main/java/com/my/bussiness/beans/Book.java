@@ -15,7 +15,6 @@ public class Book {
     private String title;
     private String author;
     private Long rating;
-    private Long publishYear;
     private Date addDate;
     private String comment;
     private Date startDate;
@@ -52,14 +51,6 @@ public class Book {
 
     public void setRating(Long rating) {
         this.rating = rating;
-    }
-
-    public Long getPublishYear() {
-        return publishYear;
-    }
-
-    public void setPublishYear(Long publishYear) {
-        this.publishYear = publishYear;
     }
 
     public Date getAddDate() {
