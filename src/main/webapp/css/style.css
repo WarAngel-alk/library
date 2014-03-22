@@ -1,3 +1,6 @@
+/* TODO: Replace borders around blocks with something.. less awful
+*/
+
 .header-line {
     background-color: #29435e;
     /*height: 50px;*/
@@ -53,9 +56,7 @@
 }
 
 .book-item-block {
-    border-color: #136c65;
-    border-style: dotted;
-    border-width: 4px;
+    border: #2f71c3 dotted 3px;
 
     padding-left: 20px;
     padding-right: 20px;
@@ -66,22 +67,54 @@
     margin-top: 5px;
 }
 
-.book-item-param-value {
-    font: normal 12pt;
-    color: #dcd9d2
+.book-item-param-name {
+    font-weight: bold;
+    font-size: 13pt;
+    color: #c2d2d8;
 }
 
-.book-item-param-name {
-    font: bold 12pt;
-    color: #c2d2d8;
+.book-item-param-value {
+    font-weight: normal;
+    font-size: 13pt;
+    color: #dcd9d2
 }
 
 .book-item-info {
     float: right;
     text-align: right;
 
-    font: italic 10pt;
+    font-style: italic;
+    font-size: 10pt;
     color: #afbeb3;
+}
+
+.custom-button {
+    float: right;
+    background-color: #74be40;
+
+    font: bold 15pt;
+
+    margin: 10px 5px;
+}
+
+.add-block {
+    border: #2f71c3 dotted 3px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.add-item {
+    width: 100%;
+
+    margin: 5px 0px;
+
+    font-weight: bold;
 }
 
 a {
@@ -94,6 +127,6 @@ a:hover {
 }
 
 body {
-    background-color: #677679;
+    background-color: #627a78;
 }
 
