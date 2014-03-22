@@ -2,6 +2,7 @@
 <%@ page import="com.my.bussiness.beans.Book" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -20,9 +21,8 @@
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
     <div class="col-md-4 col-md-offset-4 add-block">
-        <div id="resultMessageBox"></div>
         <%
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Book book = HttpUtil.fillBookWithParams(request);
 
             String title = (book.getTitle() != null) ? book.getTitle() : "";
@@ -37,6 +37,24 @@
             String endDate = (_endDate != null) ? sdf.format(_endDate) : "";
             String rating = (_rating != null) ? _rating.toString() : "";
         %>
+        <div id="resultMessageBox">
+            <%
+                List<String> errorsList = (List<String>) request.getAttribute("ErrorsList");
+                if(errorsList != null) {
+                    if(errorsList.size() == 0) { %>
+            <div class="label label-success">
+                Book has been added successfully!
+            </div>
+                    <% } else {
+                        for (String msg : errorsList) { %>
+           <div class="label label-danger">
+               <%=msg%>
+           </div>
+                        <% }
+                    }
+                }
+            %>
+        </div>
         <form method="post">
             <input type="text" class="input-group add-item" id="param_Title" name="param_Title"
                    required="true" placeholder="Title" value="<%=title%>" />
