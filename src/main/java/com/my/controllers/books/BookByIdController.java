@@ -27,7 +27,6 @@ public class BookByIdController extends HttpServlet {
         logger.info("Got request in BookByIdController");
 
         String[] pathArray = req.getRequestURI().split("/");
-//            Logger.getLogger("test").error(request.getRequestURI());
         long id = Long.parseLong(pathArray[pathArray.length - 1]);
         req.setAttribute("bookToDisplayId", id);
 

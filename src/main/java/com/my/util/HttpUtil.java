@@ -27,6 +27,9 @@ public abstract class HttpUtil {
         String comment = req.getParameter("param_Comment");
         String pictureUrl = req.getParameter("param_PictureUrl");
 
+        if(pictureUrl == null || pictureUrl.length() == 0)  pictureUrl = null;
+        if(comment == null || comment.length() == 0)        comment = null;
+
         String strRating = req.getParameter("param_Rating");
         String strStartDate = req.getParameter("param_StartDate");
         String strEndDate = req.getParameter("param_EndDate");
@@ -35,8 +38,8 @@ public abstract class HttpUtil {
         Date endDate = null;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            if(strStartDate != null) startDate = sdf.parse(strStartDate);
-            if(strEndDate != null) endDate = sdf.parse(strEndDate);
+            if(strStartDate != null && !strStartDate.equals("")) startDate = sdf.parse(strStartDate);
+            if(strEndDate != null && !strEndDate.equals("")) endDate = sdf.parse(strEndDate);
         } catch (ParseException e1) {
             logger.warn("Incorrect date format", e1);
         }

@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.my.util.LogUtil.getCurrentClass;
@@ -23,6 +25,9 @@ import static com.my.util.LogUtil.getCurrentClass;
 public class BooksDao {
 
     private static final Logger log = Logger.getLogger(getCurrentClass());
+
+    private static final SimpleDateFormat sqlDate = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat sqlDateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public List<Book> selectAll() {
         log.debug("Getting connection from pool");
@@ -141,26 +146,35 @@ public class BooksDao {
 
         long result = 0;
 
+        // TODO: There is too many code for SQL generation. Extract it to SqlQueryFactory (Is it Factory?)
+        Date startDate = book.getStartDate();
+        Date endDate = book.getEndDate();
+        String pictureUrl = book.getPictureUrl();
+        String comment = book.getComment();
+        String qryStartDate = (startDate != null) ? ("'" + sqlDate.format(startDate) + "'") : "null";
+        String qryEndDate = (endDate != null) ? ("'" + sqlDate.format(endDate) + "'") : "null";
+        String qryPictureUrl = (pictureUrl != null) ? ("'" + pictureUrl + "'") : "null";
+        String qryComment = (comment != null) ? ("'" + pictureUrl + "'") : "null";
+        String sql =
+            "INSERT INTO `books` " +
+                "(`books_title`, `books_author`, " +
+                "`books_rating`, `books_comment`, `books_start_date`, `books_end_date`, " +
+                "`books_picture_url`, `books_add_date`) " +
+            "VALUES " +
+                " ('" + book.getTitle() + "'," +
+                " '" + book.getAuthor() + "'," +
+                " " + book.getRating() + "," +
+                " '" + qryComment + "'," +
+                " " + qryStartDate + "," +
+                " " + qryEndDate + "," +
+                " " + qryPictureUrl + "," +
+                " '" + sqlDateTime.format(book.getAddDate()) + "');";
+
         try {
 
             st = con.createStatement();
             log.info("Executing query for DB to add new book");
-            st.executeUpdate(
-                    "INSERT INTO `books` " +
-                        "(`books_book_id`, `books_title`, `books_author`, " +
-                        "`books_rating`, `books_comment`, `books_start_date`, `books_end_date`, " +
-                        "`books_picture_url`, `books_add_date`) " +
-                    "VALUES " +
-                        "( `" + book.getId() + "`," +
-                        " `" + book.getTitle() + "`," +
-                        " `" + book.getAuthor() + "`," +
-                        " `" + book.getRating() + "`," +
-                        " `" + book.getComment() + "`," +
-                        " `" + book.getStartDate() + "`," +
-                        " `" + book.getEndDate() + "`," +
-                        " `" + book.getPictureUrl() + "`," +
-                        " `" + book.getAddDate() + "`);",
-                    Statement.RETURN_GENERATED_KEYS);
+            st.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 
             rs = st.getGeneratedKeys();
             if(rs.next()) {
@@ -171,6 +185,7 @@ public class BooksDao {
 
         } catch (SQLException e1) {
             log.warn("Error while executing SQL-query, no data have been inserted", e1);
+            log.debug("Sql with error: " + sql);
             result = 0;
         } catch (Exception e2) {
             log.warn("Unknown error while getting data from DB", e2);
