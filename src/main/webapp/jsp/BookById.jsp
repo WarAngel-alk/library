@@ -18,17 +18,19 @@
     <%@ include file="/jsp/includes/header.jsp" %>
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-1 col-md-offset-11">
+        <a href="/library/books/add">
+            <button class="btn custom-button">Add new book</button>
+        </a>
+    </div>
+
+    <div class="col-md-12" style="padding: 0 20px; margin: 0;">
         <%
-//            String[] pathArray = request.getRequestURI().split("/");
-//            Logger.getLogger("test").error(request.getRequestURI());
-//            long id = Long.parseLong(pathArray[pathArray.length - 1]);
-//            long id = 1;
             long id = (Long) request.getAttribute("bookToDisplayId");
             Book book = new BooksDao().selectById(id);
             config.getServletContext().setAttribute("bookToDisplay", book);
         %>
-        <div class="row book-item-block">
+        <div class="row book-item-block" style="background-color: #427278; border: #2f71c3 solid 2px;">
             <jsp:include page="/jsp/includes/book.jsp" flush="true" />
         </div>
     </div>

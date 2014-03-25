@@ -18,13 +18,13 @@
     <%@ include file="/jsp/includes/header.jsp" %>
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
-    <div class="col-md-1 col-md-offset-10">
+    <div class="col-md-1 col-md-offset-11">
         <a href="/library/books/add">
             <button class="btn custom-button">Add new book</button>
         </a>
     </div>
 
-    <div class="col-md-12" style="padding: 0 20px;">
+    <div class="col-md-12" style="padding: 0 20px; margin: 0;">
         <%
             List<Book> booksList = new BooksDao().selectAll();
 
@@ -34,7 +34,7 @@
                 lighter = ! lighter;
         %>
         <div class="row book-item-block"
-             style="background-color: <%=(lighter) ? "#82a898" : "#628878"%>; border: #2f71c3 solid 2px;" >
+             style="background-color: <%=(lighter) ? "#529298" : "#427278"%>; border: #2f71c3 solid 2px;" >
             <jsp:include page="/jsp/includes/book.jsp" flush="true" />
         </div>
         <% } %>
