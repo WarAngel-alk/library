@@ -52,7 +52,7 @@
         <span class="book-item-param-value"><%=dateFormat.format(bookToDisplay.getEndDate())%></span>
     </div>
     <% } %>
-    <% if(bookToDisplay.getComment() != null) { %>
+    <% if(bookToDisplay.getComment() != null && bookToDisplay.getComment().length() != 0) { %>
     <div>
         <span class="book-item-param-name">Comment:</span>
         <span class="book-item-param-value"><%=bookToDisplay.getComment()%></span>
