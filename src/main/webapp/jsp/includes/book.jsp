@@ -16,7 +16,9 @@
         <div style="float: right;">
             <span class="book-item-info">Added: <%=dateFormat.format(bookToDisplay.getAddDate())%></span>
         </div>
+        <% if(!request.getAttribute("currentPage").equals("bookById")) { %>
         <a href="/library/books/id/<%=bookToDisplay.getId()%>">
+        <% } %>
             <div>
                 <span class="book-item-param-name">Title:</span>
                 <span class="book-item-param-value"><%=bookToDisplay.getTitle()%></span>
@@ -25,7 +27,9 @@
                 <span class="book-item-param-name">Author:</span>
                 <span class="book-item-param-value"><%=bookToDisplay.getAuthor()%></span>
             </div>
+        <% if(!request.getAttribute("currentPage").equals("bookById")) { %>
         </a>
+        <% } %>
 
         <% if(bookToDisplay.getRating() != 0) { %>
         <div>
