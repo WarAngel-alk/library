@@ -83,6 +83,52 @@ public class BooksDao {
         return resultList;
     }
 
+    public List<Book> selectAllSimple() {
+        log.debug("Getting connection from pool");
+        Connection con = ConnectionManager.getInstance().getConnection();
+        Statement st = null;
+        ResultSet rs = null;
+
+        List<Book> resultList = new ArrayList<Book>();
+
+        try {
+
+            st = con.createStatement();
+            log.info("Executing query to DB to select id, title and author of all books");
+            rs = st.executeQuery(
+                    "SELECT " +
+                        "`books_id`, `books_title`, `books_author` " +
+                    "FROM " +
+                        "`books`");
+
+            while(rs.next()) {
+                Book book = new Book();
+
+                book.setId(rs.getLong(1));
+                book.setTitle(rs.getString(2));
+                book.setAuthor(rs.getString(3));
+
+                resultList.add(book);
+            }
+
+        } catch (SQLException e1) {
+            log.warn("Error while executing SQL-query.", e1);
+        } catch (Exception e2) {
+            log.warn("Unknown error while getting data from DB", e2);
+        } finally {
+            log.debug("Closing resources of connection...");
+            try {
+                if(rs != null) rs.close();
+                if(st != null) st.close();
+                if(con != null) con.close();
+            } catch (SQLException e3) {
+                log.warn("Some resources have not been closed!", e3);
+            }
+        }
+
+        return resultList;
+    }
+
     public Book selectById(long id) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -102,7 +148,7 @@ public class BooksDao {
                     "`books_picture_url`, `books_add_date`" +
                 "FROM " +
                     "`books`" +
-                "WHERE" +
+                "WHERE " +
                     "`books_id`=" + id
             );
 
@@ -154,7 +200,7 @@ public class BooksDao {
         String qryStartDate = (startDate != null) ? ("'" + sqlDate.format(startDate) + "'") : "null";
         String qryEndDate = (endDate != null) ? ("'" + sqlDate.format(endDate) + "'") : "null";
         String qryPictureUrl = (pictureUrl != null) ? ("'" + pictureUrl + "'") : "null";
-        String qryComment = (comment != null) ? ("'" + pictureUrl + "'") : "null";
+        String qryComment = (comment != null) ? ("'" + pictureUrl + "'") : "";
         String sql =
             "INSERT INTO `books` " +
                 "(`books_title`, `books_author`, " +

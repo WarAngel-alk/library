@@ -20,7 +20,11 @@
     <%@ include file="includes/header.jsp" %>
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
-
+    <div class="col-md-1 col-md-offset-11">
+        <a href="/library/quotes/add">
+            <button class="btn custom-button">Add new quote</button>
+        </a>
+    </div>
 
     <div class="col-md-10 col-md-offset-1">
         <%

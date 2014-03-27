@@ -1,6 +1,7 @@
 package com.my.util;
 
 import com.my.bussiness.beans.Book;
+import com.my.bussiness.beans.Quote;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,18 +23,20 @@ public abstract class HttpUtil {
     private static final Logger logger = Logger.getLogger(getCurrentClass());
 
     public static Book fillBookWithParams(HttpServletRequest req) {
+        logger.debug("Getting properties from request parameters");
+
         String title = req.getParameter("param_Title");
         String author = req.getParameter("param_Author");
         String comment = req.getParameter("param_Comment");
         String pictureUrl = req.getParameter("param_PictureUrl");
-
-        if(pictureUrl == null || pictureUrl.length() == 0)  pictureUrl = null;
-        if(comment == null || comment.length() == 0)        comment = null;
-
         String strRating = req.getParameter("param_Rating");
         String strStartDate = req.getParameter("param_StartDate");
         String strEndDate = req.getParameter("param_EndDate");
 
+        if(pictureUrl == null || pictureUrl.length() == 0)  pictureUrl = null;
+        if(comment == null || comment.length() == 0)        comment = null;
+
+        logger.debug("Formatting string date to Date object");
         Date startDate = null;
         Date endDate = null;
         try {
@@ -44,6 +47,7 @@ public abstract class HttpUtil {
             logger.warn("Incorrect date format", e1);
         }
 
+        logger.debug("Formatting string number (rating) to Long object");
         Long rating = null;
         try {
             if(strRating != null) rating = Long.parseLong(strRating);
@@ -51,10 +55,10 @@ public abstract class HttpUtil {
             logger.warn("Incorrect number format (rating)", e2);
         }
 
+        logger.debug("Setting properties of book");
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
-        // TODO: Change type of 'rating' in Book bean to Integer
         book.setRating(rating);
         book.setStartDate(startDate);
         book.setEndDate(endDate);
@@ -65,5 +69,19 @@ public abstract class HttpUtil {
 
         return book;
     }
+
+    public static Quote fillQuoteWithParams(HttpServletRequest req) {
+        Quote quote = new Quote();
+
+        Long id = Long.valueOf(req.getParameter("param_book_id"));
+        String comment = req.getParameter("param_comment");
+
+        quote.setBookId(id);
+        quote.setText(comment);
+        quote.setAddDate(new Date());
+
+        return quote;
+    }
+
 
 }

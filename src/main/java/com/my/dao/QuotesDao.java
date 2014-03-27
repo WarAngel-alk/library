@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class QuotesDao {
     // TODO: Make possible adding quotes without linking with book
 
     private static final Logger log = Logger.getLogger(getCurrentClass());
+
+    private static final SimpleDateFormat sqlDate = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat sqlDateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public List<Quote> selectAll() {
         log.debug("Getting connection from pool");
@@ -80,7 +84,7 @@ public class QuotesDao {
         return resultList;
     }
 
-    public Quote selectById(int id) {
+    public Quote selectById(long id) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
         Statement st = null;
@@ -146,11 +150,11 @@ public class QuotesDao {
             st = con.createStatement();
             log.info("Executing query for database to get add query");
             st.executeUpdate(
-                    "INSERT INTO" +
-                        "`quotes`" +
-                        "(`quotes_book_id`, `quotes_text`, `quotes_add_datetime`)" +
-                    "VALUES" +
-                        "('" + q.getBookId() + "', '" + q.getText() + "', '" + q.getAddDate() + "')",
+                    "INSERT INTO " +
+                        "`quotes` " +
+                        "(`quotes_book_id`, `quotes_text`, `quotes_add_datetime`) " +
+                    "VALUES " +
+                        "('" + q.getBookId() + "', '" + q.getText() + "', '" + sqlDateTime.format(q.getAddDate()) + "')",
                     Statement.RETURN_GENERATED_KEYS);
 
             rs = st.getGeneratedKeys();
