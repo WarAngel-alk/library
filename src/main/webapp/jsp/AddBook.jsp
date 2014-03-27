@@ -70,7 +70,7 @@
                    name="param_PictureUrl" placeholder="Picture URL" value="<%=pictureUrl%>" />
             <textarea class="input-group add-item" id="param_Comment" name="param_Comment"
                       placeholder="Comment" rows="5"><%=comment%></textarea>
-            <input type="submit" class="btn" id="submit_btn" title="Add book" style="float: right;" />
+            <input type="submit" class="btn" id="submit_btn" value="Add book" style="float: right;" />
         </form>
     </div>
 
