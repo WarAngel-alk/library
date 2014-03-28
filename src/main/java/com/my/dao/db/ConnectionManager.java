@@ -53,4 +53,15 @@ public class ConnectionManager {
         }
     }
 
+    public synchronized void setDataSource(String path) {
+        try {
+            Context ctx = new InitialContext();
+            Context envCtx = (Context) ctx.lookup("java:comp/env");
+            dataSource = (DataSource) envCtx.lookup(path);
+        } catch (NamingException e2) {
+            log.error("Error while loading data source (JNDI)", e2);
+            throw new RuntimeException("Error while loading data source (JNDI)");
+        }
+    }
+
 }
