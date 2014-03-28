@@ -30,7 +30,7 @@
             Book book = new BooksDao().selectById(id);
             config.getServletContext().setAttribute("bookToDisplay", book);
         %>
-        <div class="row book-item-block" style="background-color: #427278; border: #2f71c3 solid 2px;">
+        <div class="row book-item-block" style="background-color: #427278;">
             <jsp:include page="/jsp/includes/book.jsp" flush="true" />
         </div>
     </div>

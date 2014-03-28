@@ -29,6 +29,8 @@
 }
 
 .quote-item-block {
+    border: #4389a7 solid 2px;
+
     color: #cfcbd0;
     font-size: 14pt;
 
@@ -52,13 +54,15 @@
 }
 
 .book-item-block {
+    border: #4389a7 solid 2px;
+
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 10px;
     padding-top: 10px;
 
-    margin-bottom: 10px;
-    margin-top: 5px;
+    /*margin-bottom: 10px;*/
+    /*margin-top: 5px;*/
 }
 
 .book-item-param-name {
@@ -79,7 +83,7 @@
 
     font-style: italic;
     font-size: 10pt;
-    color: #afbeb3;
+    color: #bac9be;
 }
 
 .custom-button {

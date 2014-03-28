@@ -28,13 +28,13 @@
         <%
             List<Book> booksList = new BooksDao().selectAll();
 
-            boolean lighter = false;
+            boolean lighter = true;
             for (Book b : booksList) {
                 config.getServletContext().setAttribute("bookToDisplay", b);
                 lighter = ! lighter;
         %>
         <div class="row book-item-block"
-             style="background-color: <%=(lighter) ? "#529298" : "#427278"%>; border: #2f71c3 solid 2px;" >
+             style="background-color: <%=(lighter) ? "#48888f" : "#427278"%>" >
             <jsp:include page="/jsp/includes/book.jsp" flush="true" />
         </div>
         <% } %>

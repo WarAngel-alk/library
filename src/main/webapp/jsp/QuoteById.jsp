@@ -29,7 +29,7 @@
             Quote quote = new QuotesDao().selectById(id);
             config.getServletContext().setAttribute("quoteToDisplay", quote);
         %>
-        <div class="row quote-item-block" >
+        <div class="row quote-item-block" style="background-color: #427278;" >
             <jsp:include page="/jsp/includes/quote.jsp" flush="true" />
         </div>
     </div>

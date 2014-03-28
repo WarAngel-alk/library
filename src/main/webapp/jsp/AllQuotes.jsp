@@ -26,24 +26,20 @@
         </a>
     </div>
 
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-12">
         <%
             List<Quote> quoteList = new QuotesDao().selectAll();
 
-        for (Quote q : quoteList) {
-            config.getServletContext().setAttribute("quoteToDisplay", q);
+            boolean lighter = true;
+            for (Quote q : quoteList) {
+                config.getServletContext().setAttribute("quoteToDisplay", q);
+                lighter = ! lighter;
         %>
-        <div class="row quote-item-block">
+        <div class="row quote-item-block"
+             style="background-color: <%=(lighter) ? "#48888f" : "#427278"%>">
             <jsp:include page="/jsp/includes/quote.jsp" flush="true" />
         </div>
         <% } %>
     </div>
-    <%--<br><br><br>--%>
-    <%--<div class="col-md-10 col-md-offset-1">--%>
-        <%--<div class="row book-item-block">--%>
-            <%--<jsp:include page="includes/book.jsp" flush="true" />--%>
-            <%--&lt;%&ndash;<%@ include file="includes/book.jsp" %>&ndash;%&gt;--%>
-        <%--</div>--%>
-    <%--</div>--%>
 </body>
 </html>
