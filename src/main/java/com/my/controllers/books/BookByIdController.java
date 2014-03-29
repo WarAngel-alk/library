@@ -30,7 +30,7 @@ public class BookByIdController extends HttpServlet {
         long id = Long.parseLong(pathArray[4]);
         req.setAttribute("bookToDisplayId", id);
 
-        if(pathArray.length >= 5 && pathArray[5].equals("quotes")) {
+        if(pathArray.length > 5 && pathArray[5].equals("quotes")) {
             logger.info("Request redirected to QuotesByBookView");
             req.setAttribute("currentPage", "quotesByBook");
             getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);
