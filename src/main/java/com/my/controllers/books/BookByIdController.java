@@ -27,11 +27,17 @@ public class BookByIdController extends HttpServlet {
         logger.info("Got request in BookByIdController");
 
         String[] pathArray = req.getRequestURI().split("/");
-        long id = Long.parseLong(pathArray[pathArray.length - 1]);
+        long id = Long.parseLong(pathArray[4]);
         req.setAttribute("bookToDisplayId", id);
 
-        logger.info("Request redirected to BookByIdView");
-        req.setAttribute("currentPage", "bookById");
-        getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
+        if(pathArray.length >= 5 && pathArray[5].equals("quotes")) {
+            logger.info("Request redirected to QuotesByBookView");
+            req.setAttribute("currentPage", "quotesByBook");
+            getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);
+        } else {
+            logger.info("Request redirected to BookByIdView");
+            req.setAttribute("currentPage", "bookById");
+            getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
+        }
     }
 }
