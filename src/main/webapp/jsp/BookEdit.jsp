@@ -54,9 +54,9 @@
     </div>
     <form method="post">
         <input type="text" class="input-group add-item" id="param_Title" name="param_Title"
-               required="true" placeholder="Title" value="<%=title%>" />
+               required="required" placeholder="Title" value="<%=title%>" />
         <input type="text" class="input-group add-item" id="param_Author" name="param_Author"
-               required="true" placeholder="Author" value="<%=author%>" />
+               required="required" placeholder="Author" value="<%=author%>" />
         <input type="number" class="input-group add-item" id="param_Rating" name="param_Rating"
                placeholder="Rating" min="0" max="10" value="<%=rating%>" />
         <input type="date" class="input-group add-item" id="param_StartDate"

@@ -1,6 +1,8 @@
 package com.my.controllers.books;
 
+import com.my.bussiness.beans.Book;
 import com.my.dao.BooksDao;
+import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -8,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.my.util.LogUtil.getCurrentClass;
 
@@ -54,7 +59,24 @@ public class BookByIdController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("Getting post request in BookByIdController");
         String[] pathArray = req.getRequestURI().split("/");
+        if(pathArray.length > 5 && pathArray[5].equals("edit")) {
+            logger.debug("Filling book's properties with request parameters");
+            Book formedBook = HttpUtil.fillBookWithParams(req);
+            formedBook.setId(Long.parseLong(pathArray[4]));
 
+            logger.debug("Passing formed book to update entry in DB");
+            long result = new BooksDao().update(formedBook);
+
+            if(result != 0) {
+                logger.debug("Book updated, redirecting to this book page");
+                req.setAttribute("bookToDisplayId", result);
+                getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
+            } else {
+                logger.warn("Error while updating book in DB");
+                List<String> errors = Arrays.asList("Error while updating book in DB. Try again later.");
+            }
+        }
     }
 }

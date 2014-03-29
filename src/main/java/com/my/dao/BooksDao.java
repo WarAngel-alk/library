@@ -250,6 +250,51 @@ public class BooksDao {
         return result;
     }
 
+    public long update(Book b) {
+        log.debug("Getting connection from pool");
+        Connection con = ConnectionManager.getInstance().getConnection();
+        Statement st = null;
+
+        long result = b.getId();
+
+        String sql =
+            "UPDATE " +
+                "`library_db`.`books` " +
+            "SET `books_title`='" + b.getTitle() + "', " +
+                "`books_author`='" + b.getAuthor() + "', " +
+                "`books_rating`=" + ((b.getRating() != null) ? "'" + b.getRating() + "'" : "null") + ", " +
+                "`books_comment`=" + ((b.getComment() != null) ? "'" + b.getComment() + "'" : "null") + ", " +
+                "`books_start_date`=" + ((b.getStartDate() != null) ? "'" + sqlDate.format(b.getStartDate()) + "'" : "null") + ", " +
+                "`books_end_date`=" + ((b.getEndDate() != null) ? "'" + sqlDate.format(b.getEndDate()) + "'" : "null") + ", " +
+                "`books_picture_url`=" + ((b.getPictureUrl() != null) ? "'" + b.getPictureUrl() + "'" : "null") + ", " +
+                "`books_add_date`=" + ((b.getAddDate() != null) ? "'" + sqlDateTime.format(b.getAddDate()) + "'" : "null") + " " +
+            "WHERE `books_id`='" + b.getId() + "';";
+
+        try {
+
+            st = con.createStatement();
+            log.info("Executing query for DB to update book info");
+            st.executeUpdate(sql);
+
+        } catch (SQLException e1) {
+            log.warn("Error while executing SQL-query, no data have been updated", e1);
+            log.debug("Sql with error: " + sql);
+            result = 0;
+        } catch (Exception e2) {
+            log.warn("Unknown error while updating data in DB", e2);
+            result = 0;
+        } finally {
+            log.debug("Closing resources of connection...");
+            try {
+                if(st != null) st.close();
+            } catch (SQLException e3) {
+                log.warn("Some resources have not been closed!", e3);
+            }
+        }
+
+        return result;
+    }
+
     public void delete(Book book) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
