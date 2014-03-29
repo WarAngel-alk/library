@@ -1,5 +1,6 @@
 package com.my.controllers.books;
 
+import com.my.dao.BooksDao;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -30,14 +31,30 @@ public class BookByIdController extends HttpServlet {
         long id = Long.parseLong(pathArray[4]);
         req.setAttribute("bookToDisplayId", id);
 
-        if(pathArray.length > 5 && pathArray[5].equals("quotes")) {
-            logger.info("Request redirected to QuotesByBookView");
-            req.setAttribute("currentPage", "quotesByBook");
-            getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);
+        if (pathArray.length > 5) {
+            String subPath = pathArray[5];
+            if (subPath.equals("quotes")) {
+                logger.info("Request redirected to QuotesByBookView");
+                req.setAttribute("currentPage", "quotesByBook");
+                getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);
+            } else if (subPath.equals("edit")) {
+                logger.debug("Selecting book for editing from DB");
+                req.setAttribute("bookToEdit", new BooksDao().selectById(id));
+
+                logger.info("Request redirecting to BookEditView");
+                req.setAttribute("currentPage", "bookEdit");
+                getServletContext().getRequestDispatcher("/jsp/BookEdit.jsp").forward(req, resp);
+            }
         } else {
             logger.info("Request redirected to BookByIdView");
             req.setAttribute("currentPage", "bookById");
             getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] pathArray = req.getRequestURI().split("/");
+
     }
 }

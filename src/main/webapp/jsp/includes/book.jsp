@@ -38,6 +38,11 @@
         </div>
         <% } %>
     </div>
+    <div class="col-md-1">
+        <a href="/library/books/id/<%=bookToDisplay.getId()%>/edit" >
+            <img src="http://icons.iconarchive.com/icons/graphicrating/quartz/64/Book-edit-icon.png" />
+        </a>
+    </div>
 </div>
 <div class="row">
     <% if(bookToDisplay.getStartDate() != null) { %>
