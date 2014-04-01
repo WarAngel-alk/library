@@ -10,7 +10,7 @@
   Time: 12:55
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
     <title>Add book</title>
@@ -55,7 +55,7 @@
                 }
             %>
         </div>
-        <form method="post">
+        <form method="post" accept-charset="UTF-8">
             <input type="text" class="input-group add-item" id="param_Title" name="param_Title"
                    required="true" placeholder="Title" value="<%=title%>" />
             <input type="text" class="input-group add-item" id="param_Author" name="param_Author"

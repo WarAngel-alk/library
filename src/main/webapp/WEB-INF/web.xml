@@ -5,6 +5,19 @@
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
 
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>com.my.filters.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>allBooksController</servlet-name>
         <servlet-class>com.my.controllers.books.AllBooksController</servlet-class>
@@ -53,7 +66,7 @@
 
     <servlet-mapping>
         <servlet-name>addBookController</servlet-name>
-        <url-pattern>/books/add/</url-pattern>
+        <url-pattern>/books/add</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
