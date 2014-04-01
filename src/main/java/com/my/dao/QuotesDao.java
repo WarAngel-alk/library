@@ -98,7 +98,7 @@ public class QuotesDao {
             log.info("Executing query for database to get quote with id=" + id);
             rs = st.executeQuery(
                 "SELECT " +
-                    "`quotes_id`, `quotes_book_id`, `quotes_text`, `quotes_add_datetime`," +
+                    "`quotes_id`, `quotes_book_id`, `quotes_text`, `quotes_add_datetime`, " +
                     "`books_title`, `books_author` " +
                 "FROM `quotes` " +
                     "JOIN `books` ON `quotes_book_id`=`books_id` " +
@@ -208,6 +208,47 @@ public class QuotesDao {
                 log.warn("Some resources have not been closed!", e3);
             }
         }
+    }
+
+    public long update(Quote q) {
+        log.debug("Getting connection from pool");
+        Connection con = ConnectionManager.getInstance().getConnection();
+        Statement st = null;
+
+        long result = q.getId();
+
+        String sql = "UPDATE `library_db`.`quotes` " +
+                "SET " +
+                "`quotes_book_id` = " + q.getBookId() + ", " +
+                "`quotes_text` = '" + q.getText() + "', " +
+                "`quotes_add_datetime` = '" + sqlDateTime.format(q.getAddDate()) + "', " +
+                "`quotes_source` = null " +
+                "WHERE `quotes_id` = " + q.getId() + ";";
+        // TODO: After adding independent quote source - change SQL-query.
+
+        try {
+
+            st = con.createStatement();
+            log.info("Executing query for DB to update book info");
+            st.executeUpdate(sql);
+
+        } catch (SQLException e1) {
+            log.warn("Error while executing SQL-query, no data have been updated", e1);
+            log.debug("Sql with error: " + sql);
+            result = 0;
+        } catch (Exception e2) {
+            log.warn("Unknown error while updating data in DB", e2);
+            result = 0;
+        } finally {
+            log.debug("Closing resources of connection...");
+            try {
+                if(st != null) st.close();
+            } catch (SQLException e3) {
+                log.warn("Some resources have not been closed!", e3);
+            }
+        }
+
+        return result;
     }
 
     public List<Quote> selectByBook(Book book) {

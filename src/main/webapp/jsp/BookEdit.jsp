@@ -15,7 +15,7 @@
     <title>Add book</title>
     <%@ include file="includes/head.jsp" %>
 </head>
-<body onload="$(param_Comment).height($(param_Comment).scrollHeight);">
+<body>
 <%@ include file="includes/header.jsp" %>
 <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
@@ -52,7 +52,7 @@
             }
         %>
     </div>
-    <form method="post">
+    <form method="post" accept-charset="utf-8">
         <input type="text" class="input-group add-item" id="param_Title" name="param_Title"
                required="required" placeholder="Title" value="<%=title%>" />
         <input type="text" class="input-group add-item" id="param_Author" name="param_Author"

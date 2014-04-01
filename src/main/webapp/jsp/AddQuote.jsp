@@ -37,7 +37,7 @@
             }
             %>
         </div>
-    <form method="post">
+    <form method="post" accept-charset="utf-8">
         <% List<Book> booksList = new BooksDao().selectAllSimple(); %>
         <select class="add-item" size="1" id="param_book_id" name="param_book_id" size="<%=booksList.size()%>">
             <% for(Book book : booksList) {%>

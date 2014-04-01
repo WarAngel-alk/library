@@ -72,10 +72,11 @@ public class BookByIdController extends HttpServlet {
             if(result != 0) {
                 logger.debug("Book updated, redirecting to this book page");
                 req.setAttribute("bookToDisplayId", result);
-                getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
+                resp.sendRedirect("/library/books/id/" + result);
             } else {
                 logger.warn("Error while updating book in DB");
                 List<String> errors = Arrays.asList("Error while updating book in DB. Try again later.");
+                resp.sendRedirect(req.getRequestURI());
             }
         }
     }
