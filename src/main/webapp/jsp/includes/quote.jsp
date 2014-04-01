@@ -11,7 +11,7 @@
 <div class="quote-item-info">
     <hr style="margin: 0;">
     <% if(quoteToDisplay.getBookId() != 0) { %>
-        <a href="/library/books/id/<%= quoteToDisplay.getBookId() %>">
+        <a href="/books/id/<%= quoteToDisplay.getBookId() %>">
             <%= quoteToDisplay.getBookAuthor() %> - <%= quoteToDisplay.getBookTitle() %>
         </a>
     <% } else { %>

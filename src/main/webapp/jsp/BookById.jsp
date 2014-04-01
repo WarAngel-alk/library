@@ -19,7 +19,7 @@
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
     <div class="col-md-1 col-md-offset-11">
-        <a href="/library/books/add">
+        <a href="/books/add">
             <button class="btn custom-button">Add new book</button>
         </a>
     </div>

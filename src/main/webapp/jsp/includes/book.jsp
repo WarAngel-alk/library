@@ -4,7 +4,7 @@
 <%--<jsp:useBean id="quoteToDisplay" class="com.my.bussiness.beans.Quote" scope="request"/>--%>
 <%  Book bookToDisplay = (Book) config.getServletContext().getAttribute("bookToDisplay");
     DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
-    String pictPath = (bookToDisplay.getPictureUrl() == null) ? "/library/img/logo.jpg" : bookToDisplay.getPictureUrl();
+    String pictPath = (bookToDisplay.getPictureUrl() == null) ? "/img/logo.jpg" : bookToDisplay.getPictureUrl();
 %>
 
 <div class="row">
@@ -17,7 +17,7 @@
             <span class="book-item-info">Added: <%=dateFormat.format(bookToDisplay.getAddDate())%></span>
         </div>
         <% if(!request.getAttribute("currentPage").equals("bookById")) { %>
-        <a href="/library/books/id/<%=bookToDisplay.getId()%>">
+        <a href="/books/id/<%=bookToDisplay.getId()%>">
         <% } %>
             <div>
                 <span class="book-item-param-name">Title:</span>
@@ -39,7 +39,7 @@
         <% } %>
     </div>
     <div class="col-md-1">
-        <a href="/library/books/id/<%=bookToDisplay.getId()%>/edit" >
+        <a href="/books/id/<%=bookToDisplay.getId()%>/edit" >
             <img src="http://icons.iconarchive.com/icons/graphicrating/quartz/64/Book-edit-icon.png" />
         </a>
     </div>

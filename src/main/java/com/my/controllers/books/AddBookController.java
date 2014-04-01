@@ -53,7 +53,7 @@ public class AddBookController extends HttpServlet {
             req.setAttribute("ErrorsList", Arrays.asList("Error while adding book to DB."));
             getServletContext().getRequestDispatcher("/jsp/AddBook.jsp").forward(req, resp);
         } else {
-            resp.sendRedirect("/library/books/id/" + addResult);
+            resp.sendRedirect("/books/id/" + addResult);
         }
 
     }

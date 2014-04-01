@@ -34,11 +34,11 @@ public class QuoteByIdController extends HttpServlet {
         logger.info("Got request in QuoteByIdController");
 
         String[] pathArray = req.getRequestURI().split("/");
-        long id = Long.parseLong(pathArray[4]);
+        long id = Long.parseLong(pathArray[3]);
         req.setAttribute("quoteToDisplayId", id);
 
-        if (pathArray.length > 5) {
-            String subPath = pathArray[5];
+        if (pathArray.length > 4) {
+            String subPath = pathArray[4];
             if (subPath.equals("edit")) {
                 logger.debug("Selecting quote for editing from DB");
                 req.setAttribute("quoteToEdit", new QuotesDao().selectById(id));
@@ -58,10 +58,10 @@ public class QuoteByIdController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Getting post request in QuoteByIdController");
         String[] pathArray = req.getRequestURI().split("/");
-        if(pathArray.length > 5 && pathArray[5].equals("edit")) {
+        if(pathArray.length > 4 && pathArray[4].equals("edit")) {
             logger.debug("Filling quotes's properties with request parameters");
             Quote formedQuote = HttpUtil.fillQuoteWithParams(req);
-            formedQuote.setId(Long.parseLong(pathArray[4]));
+            formedQuote.setId(Long.parseLong(pathArray[3]));
 
             logger.debug("Passing formed book to update entry in DB");
             long result = new QuotesDao().update(formedQuote);
@@ -69,7 +69,7 @@ public class QuoteByIdController extends HttpServlet {
             if(result != 0) {
                 logger.debug("Quote updated, redirecting to this quote page");
                 req.setAttribute("quoteToDisplayId", result);
-                resp.sendRedirect("/library/quotes/id/" + result);
+                resp.sendRedirect("/quotes/id/" + result);
             } else {
                 logger.warn("Error while updating quote in DB");
                 List<String> errors = Arrays.asList("Error while updating quote in DB. Try again later.");

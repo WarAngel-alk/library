@@ -49,7 +49,7 @@ public class AddQuoteController extends HttpServlet {
             getServletContext().getRequestDispatcher("/jsp/AddQuote.jsp").forward(req, resp);
         } else {
             logger.info("Added quote with id=" + addResult + "; redirecting to page with new quote");
-            resp.sendRedirect("/library/quotes/id/" + addResult);
+            resp.sendRedirect("/quotes/id/" + addResult);
         }
     }
 }

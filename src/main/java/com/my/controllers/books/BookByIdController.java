@@ -33,11 +33,11 @@ public class BookByIdController extends HttpServlet {
         logger.info("Got request in BookByIdController");
 
         String[] pathArray = req.getRequestURI().split("/");
-        long id = Long.parseLong(pathArray[4]);
+        long id = Long.parseLong(pathArray[3]);
         req.setAttribute("bookToDisplayId", id);
 
-        if (pathArray.length > 5) {
-            String subPath = pathArray[5];
+        if (pathArray.length > 4) {
+            String subPath = pathArray[4];
             if (subPath.equals("quotes")) {
                 logger.info("Request redirected to QuotesByBookView");
                 req.setAttribute("currentPage", "quotesByBook");
@@ -61,10 +61,11 @@ public class BookByIdController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Getting post request in BookByIdController");
         String[] pathArray = req.getRequestURI().split("/");
-        if(pathArray.length > 5 && pathArray[5].equals("edit")) {
+
+        if(pathArray.length > 4 && pathArray[4].equals("edit")) {
             logger.debug("Filling book's properties with request parameters");
             Book formedBook = HttpUtil.fillBookWithParams(req);
-            formedBook.setId(Long.parseLong(pathArray[4]));
+            formedBook.setId(Long.parseLong(pathArray[3]));
 
             logger.debug("Passing formed book to update entry in DB");
             long result = new BooksDao().update(formedBook);
@@ -72,7 +73,7 @@ public class BookByIdController extends HttpServlet {
             if(result != 0) {
                 logger.debug("Book updated, redirecting to this book page");
                 req.setAttribute("bookToDisplayId", result);
-                resp.sendRedirect("/library/books/id/" + result);
+                resp.sendRedirect("/books/id/" + result);
             } else {
                 logger.warn("Error while updating book in DB");
                 List<String> errors = Arrays.asList("Error while updating book in DB. Try again later.");
