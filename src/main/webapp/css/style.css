@@ -30,6 +30,7 @@
 
 .quote-item-block {
     border: #4389a7 solid 2px;
+    border-radius: 30px;
 
     color: #cfcbd0;
     font-size: 14pt;
@@ -40,7 +41,8 @@
     padding-top: 10px;
 
     margin-bottom: 10px;
-    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .quote-item-info {
@@ -55,14 +57,16 @@
 
 .book-item-block {
     border: #4389a7 solid 2px;
+    border-radius: 30px;
 
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 15px;
+    padding-top: 15px;
 
-    /*margin-bottom: 10px;*/
-    /*margin-top: 5px;*/
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .book-item-param-name {
