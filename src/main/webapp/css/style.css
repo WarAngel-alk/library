@@ -19,6 +19,13 @@
     margin-right: 15px;
 }
 
+.page-message {
+    width: 100%;
+    font-size: 15pt;
+    text-align: center;
+    margin-top: 5px;
+}
+
 .header-link-active {
     color: #78c42a;
     text-decoration: underline;
