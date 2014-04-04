@@ -18,7 +18,7 @@
     <%@ include file="includes/header.jsp" %>
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
-    <div class="col-md-4 col-md-offset-4 add-block">
+    <div class="col-md-6 col-md-offset-3 add-block">
         <div id="resultMessageBox">
             <%
                 List<String> errorsList = (List<String>) request.getAttribute("ErrorsList");

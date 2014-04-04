@@ -109,12 +109,12 @@
 }
 
 .add-block {
-    border: #2f71c3 dotted 3px;
+    border: #4389a7 solid 2px;
+    border-radius: 30px;
 
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-bottom: 5px;
-    padding-top: 5px;
+    background-color: #427278;
+
+    padding: 10px 30px;
 
     margin-bottom: 10px;
     margin-top: 30px;
