@@ -12,9 +12,18 @@
         <img src="<%=pictPath%>" width="96" height="128" />
     </div>
 
-    <div class="col-md-9" style="padding-left: 0;">
+    <div class="col-md-10" style="padding-left: 0;">
         <div style="float: right;">
-            <span class="book-item-info">Added: <%=dateFormat.format(bookToDisplay.getAddDate())%></span>
+            <span class="book-item-info">Added: <%=dateFormat.format(bookToDisplay.getAddDate())%></span><br>
+            <a href="/books/id/<%=bookToDisplay.getId()%>/edit" >
+                <img src="/img/edit-icon.png" />
+            </a>
+            <a href="/books/id/<%=bookToDisplay.getId()%>/quotes" >
+                <img src="/img/quote-icon.png" />
+            </a>
+            <a href="/books/id/<%=bookToDisplay.getId()%>/delete" >
+                <img src="/img/book-delete-icon.png" />
+            </a>
         </div>
         <% if(!request.getAttribute("currentPage").equals("bookById")) { %>
         <a href="/books/id/<%=bookToDisplay.getId()%>">
@@ -39,9 +48,7 @@
         <% } %>
     </div>
     <div class="col-md-1">
-        <a href="/books/id/<%=bookToDisplay.getId()%>/edit" >
-            <img src="http://icons.iconarchive.com/icons/graphicrating/quartz/64/Book-edit-icon.png" />
-        </a>
+
     </div>
 </div>
 <div class="row">
