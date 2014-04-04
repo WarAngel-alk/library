@@ -19,12 +19,6 @@
     <%@ include file="includes/header.jsp" %>
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
-    <div class="col-md-1 col-md-offset-11">
-        <a href="/quotes/add">
-            <button class="btn custom-button">Add new quote</button>
-        </a>
-    </div>
-
     <div class="col-md-12">
         <%
             Book book = new Book();

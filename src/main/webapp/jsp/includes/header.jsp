@@ -21,6 +21,17 @@
     <div class="header-link <%=lblQuotesClass%>">
         <a href="/quotes">Quotes</a>
     </div>
+
+    <div class="header-btn" style="float: right; margin-top: 7px; margin-right: 25px" >
+        <a href="/books/add">
+            <img src="/img/book-add-icon.png" width=40 height=40  />
+        </a>
+    </div>
+    <div class="header-btn" style="float: right; margin-top: 7px; margin-right: 15px" >
+        <a href="/quotes/add">
+            <img src="/img/quote-add-icon.png" width=40 height=40 />
+        </a>
+    </div>
 </div>
 
 <%

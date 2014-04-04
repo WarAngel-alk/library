@@ -18,12 +18,6 @@
     <%@ include file="/jsp/includes/header.jsp" %>
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
-    <div class="col-md-1 col-md-offset-11">
-        <a href="/books/add">
-            <button class="btn custom-button">Add new book</button>
-        </a>
-    </div>
-
     <div class="col-md-12" style="padding: 0 20px; margin: 0;">
         <%
             long id = (Long) request.getAttribute("bookToDisplayId");

@@ -4,6 +4,8 @@
 .header-line {
     background-color: #29435e;
     /*height: 50px;*/
+
+    margin-bottom: 20px;
 }
 
 .header-link {
