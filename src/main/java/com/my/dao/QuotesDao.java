@@ -210,6 +210,12 @@ public class QuotesDao {
         }
     }
 
+    public void deleteById(long id) {
+        Quote quote = new Quote();
+        quote.setId(id);
+        delete(quote);
+    }
+
     public long update(Quote q) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();

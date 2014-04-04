@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static com.my.util.LogUtil.getCurrentClass;
 
@@ -46,6 +48,21 @@ public class QuoteByIdController extends HttpServlet {
                 logger.info("Request redirecting to QuoteEditView");
                 req.setAttribute("currentPage", "quoteEdit");
                 getServletContext().getRequestDispatcher("/jsp/QuoteEdit.jsp").forward(req, resp);
+            } else if (subPath.equals("delete")) {
+                logger.debug("Deleting quote with id=" + id + " from DB");
+                new QuotesDao().deleteById(id);
+
+                logger.debug("Putting delete message to messageMap");
+                Map<String, String> messageMap = (Map<String, String>) req.getAttribute("messageMap");
+                if(messageMap == null) {
+                    messageMap = new TreeMap<String, String>();
+                }
+                messageMap.put("success", "Quote have been deleted successfully");
+                req.setAttribute("messageMap", messageMap);
+
+                logger.info("Request redirected to AllQuotesView");
+                req.setAttribute("currentPage", "allQuotes");
+                resp.sendRedirect("/quotes");
             }
         } else {
             logger.info("Request redirected to QuoteByIdView");
