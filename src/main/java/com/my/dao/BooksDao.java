@@ -304,7 +304,7 @@ public class BooksDao {
 
             st = con.createStatement();
             log.info("Executing query for database to delete book with id=" + book.getId());
-            st.execute("DELETE FROM `books` WHERE `id`=" + book.getId());
+            st.execute("DELETE FROM `books` WHERE `books_id`=" + book.getId());
 
         } catch (SQLException e1) {
             log.warn("Error while executing SQL-query, no data have been deleted", e1);
@@ -319,6 +319,12 @@ public class BooksDao {
                 log.warn("Some resources have not been closed!", e3);
             }
         }
+    }
+
+    public void deleteById(long id) {
+        Book book = new Book();
+        book.setId(id);
+        delete(book);
     }
 
 }

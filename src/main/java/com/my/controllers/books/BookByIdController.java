@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static com.my.util.LogUtil.getCurrentClass;
 
@@ -32,11 +30,13 @@ public class BookByIdController extends HttpServlet {
             throws ServletException, IOException {
         logger.info("Got request in BookByIdController");
 
+        // domain.com/books/id/42
         String[] pathArray = req.getRequestURI().split("/");
         long id = Long.parseLong(pathArray[3]);
         req.setAttribute("bookToDisplayId", id);
 
         if (pathArray.length > 4) {
+            // domain.com/books/id/42/edit
             String subPath = pathArray[4];
             if (subPath.equals("quotes")) {
                 logger.info("Request redirected to QuotesByBookView");
@@ -49,6 +49,21 @@ public class BookByIdController extends HttpServlet {
                 logger.info("Request redirecting to BookEditView");
                 req.setAttribute("currentPage", "bookEdit");
                 getServletContext().getRequestDispatcher("/jsp/BookEdit.jsp").forward(req, resp);
+            } else if (subPath.equals("delete")) {
+                logger.debug("Deleting book with id=" + id + " from DB");
+                new BooksDao().deleteById(id);
+
+                logger.debug("Putting delete message to messageMap");
+                Map<String, String> messageMap = (Map<String, String>) req.getAttribute("messageMap");
+                if(messageMap == null) {
+                    messageMap = new TreeMap<String, String>();
+                }
+                messageMap.put("success", "Book have been deleted successfully");
+                req.setAttribute("messageMap", messageMap);
+
+                logger.info("Request redirected to AllBooksView");
+                req.setAttribute("currentPage", "allBooks");
+                resp.sendRedirect("/books");
             }
         } else {
             logger.info("Request redirected to BookByIdView");
