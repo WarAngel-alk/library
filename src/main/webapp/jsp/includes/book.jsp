@@ -1,8 +1,9 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="com.my.bussiness.beans.Book" %>
-<%--<jsp:useBean id="quoteToDisplay" class="com.my.bussiness.beans.Quote" scope="request"/>--%>
-<%  Book bookToDisplay = (Book) config.getServletContext().getAttribute("bookToDisplay");
+<%@ page import="com.my.enums.RequestAttributes" %>
+<%  Book bookToDisplay =
+        (Book) config.getServletContext().getAttribute(RequestAttributes.BookToDisplay.name());
     DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
     String pictPath = (bookToDisplay.getPictureUrl() == null) ? "/img/logo.jpg" : bookToDisplay.getPictureUrl();
 %>
@@ -25,7 +26,7 @@
                 <img src="/img/book-delete-icon.png" />
             </a>
         </div>
-        <% if(!request.getAttribute("currentPage").equals("bookById")) { %>
+        <% if(!request.getAttribute(RequestAttributes.CurrentPage.name()).equals("bookById")) { %>
         <a href="/books/id/<%=bookToDisplay.getId()%>">
         <% } %>
             <div>
@@ -36,7 +37,7 @@
                 <span class="book-item-param-name">Author:</span>
                 <span class="book-item-param-value"><%=bookToDisplay.getAuthor()%></span>
             </div>
-        <% if(!request.getAttribute("currentPage").equals("bookById")) { %>
+        <% if(!request.getAttribute(RequestAttributes.CurrentPage.name()).equals("bookById")) { %>
         </a>
         <% } %>
 

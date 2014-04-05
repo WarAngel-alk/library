@@ -1,7 +1,6 @@
 package com.my.controllers.quotes;
 
-import com.my.bussiness.beans.Quote;
-import com.my.dao.QuotesDao;
+import com.my.enums.RequestAttributes;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -29,7 +28,7 @@ public class AllQuotesController extends HttpServlet {
         logger.info("Got request in AllQuotesController");
 
         logger.info("Request redirected to AllQuotesView");
-        req.setAttribute("currentPage", "allQuotes");
+        req.setAttribute(RequestAttributes.CurrentPage.name(), "allQuotes");
         getServletContext().getRequestDispatcher("/jsp/AllQuotes.jsp").forward(req, resp);
     }
 }

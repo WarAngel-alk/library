@@ -3,6 +3,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.my.enums.RequestAttributes" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -39,7 +40,8 @@
         %>
         <div id="resultMessageBox">
             <%
-                List<String> errorsList = (List<String>) request.getAttribute("ErrorsList");
+                List<String> errorsList =
+                        (List<String>) request.getAttribute(RequestAttributes.ErrorsList.name());
                 if(errorsList != null) {
                     if(errorsList.size() == 0) { %>
             <div class="label label-success">

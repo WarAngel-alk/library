@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.my.dao.QuotesDao" %>
 <%@ page import="com.my.bussiness.beans.Book" %>
+<%@ page import="com.my.enums.RequestAttributes" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -22,12 +23,13 @@
     <div class="col-md-12">
         <%
             Book book = new Book();
-            book.setId((Long) request.getAttribute("bookToDisplayId"));
+            book.setId((Long) request.getAttribute(RequestAttributes.BookToDisplayId.name()));
             List<Quote> quoteList = new QuotesDao().selectByBook(book);
 
             boolean lighter = true;
             for (Quote q : quoteList) {
-                config.getServletContext().setAttribute("quoteToDisplay", q);
+                config.getServletContext()
+                        .setAttribute(RequestAttributes.QuoteToDisplay.name(), q);
                 lighter = ! lighter;
         %>
         <div class="row quote-item-block"

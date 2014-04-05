@@ -1,11 +1,14 @@
 <%@ page import="java.util.TreeMap" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
+<%@ page import="com.my.enums.RequestAttributes" %>
 <div class="header-line">
     <img src="/img/logo.jpg" width="50" height="50"/>
-    <jsp:useBean id="currentPage" class="java.lang.String" scope="request" />
-    <jsp:useBean id="messagesMap" class="java.util.TreeMap" scope="request" />
     <%
+        String currentPage = (String) request.getAttribute(RequestAttributes.CurrentPage.name());
+        Map<String, String> messagesMap =
+                (Map) request.getAttribute(RequestAttributes.MessagesMap.name());
+
         String lblBooksClass = "header-link-passive";
         String lblQuotesClass = "header-link-passive";
 
@@ -35,23 +38,25 @@
 </div>
 
 <%
-    Set<String> keys = messagesMap.keySet();
+    if (messagesMap != null) {
+        Set<String> keys = messagesMap.keySet();
 
-    for(String key : keys) {
-        String msgType;
-        if (key.equals("danger")) {
-            msgType = "label-danger";
-        } else if (key.equals("warning")) {
-            msgType = "label-warning";
-        } else if (key.equals("success")) {
-            msgType = "label-success";
-        } else {
-            msgType = "label-info";
-        }
+        for(String key : keys) {
+            String msgType;
+            if (key.equals("danger")) {
+                msgType = "label-danger";
+            } else if (key.equals("warning")) {
+                msgType = "label-warning";
+            } else if (key.equals("success")) {
+                msgType = "label-success";
+            } else {
+                msgType = "label-info";
+            }
 %>
 <div class="<%=msgType%> page-message">
     <%=messagesMap.get(key)%>
 </div>
 <%
+        }
     }
 %>

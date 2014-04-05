@@ -2,6 +2,7 @@ package com.my.controllers.books;
 
 import com.my.bussiness.beans.Book;
 import com.my.dao.BooksDao;
+import com.my.enums.RequestAttributes;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
 
@@ -33,41 +34,43 @@ public class BookByIdController extends HttpServlet {
         // domain.com/books/id/42
         String[] pathArray = req.getRequestURI().split("/");
         long id = Long.parseLong(pathArray[3]);
-        req.setAttribute("bookToDisplayId", id);
+        req.setAttribute(RequestAttributes.BookToDisplayId.name(), id);
 
         if (pathArray.length > 4) {
             // domain.com/books/id/42/edit
             String subPath = pathArray[4];
             if (subPath.equals("quotes")) {
                 logger.info("Request redirected to QuotesByBookView");
-                req.setAttribute("currentPage", "quotesByBook");
+                req.setAttribute(RequestAttributes.CurrentPage.name(), "quotesByBook");
                 getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);
             } else if (subPath.equals("edit")) {
                 logger.debug("Selecting book for editing from DB");
-                req.setAttribute("bookToEdit", new BooksDao().selectById(id));
+                req.setAttribute(RequestAttributes.BookToEdit.name(),
+                        new BooksDao().selectById(id));
 
                 logger.info("Request redirecting to BookEditView");
-                req.setAttribute("currentPage", "bookEdit");
+                req.setAttribute(RequestAttributes.CurrentPage.name(), "bookEdit");
                 getServletContext().getRequestDispatcher("/jsp/BookEdit.jsp").forward(req, resp);
             } else if (subPath.equals("delete")) {
                 logger.debug("Deleting book with id=" + id + " from DB");
                 new BooksDao().deleteById(id);
 
                 logger.debug("Putting delete message to messageMap");
-                Map<String, String> messageMap = (Map<String, String>) req.getAttribute("messageMap");
+                Map<String, String> messageMap =
+                        (Map<String, String>) req.getAttribute(RequestAttributes.MessagesMap.name());
                 if(messageMap == null) {
                     messageMap = new TreeMap<String, String>();
                 }
                 messageMap.put("success", "Book have been deleted successfully");
-                req.setAttribute("messageMap", messageMap);
+                req.setAttribute(RequestAttributes.MessagesMap.name(), messageMap);
 
                 logger.info("Request redirected to AllBooksView");
-                req.setAttribute("currentPage", "allBooks");
+                req.setAttribute(RequestAttributes.CurrentPage.name(), "allBooks");
                 resp.sendRedirect("/books");
             }
         } else {
             logger.info("Request redirected to BookByIdView");
-            req.setAttribute("currentPage", "bookById");
+            req.setAttribute(RequestAttributes.CurrentPage.name(), "bookById");
             getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
         }
     }
@@ -87,7 +90,7 @@ public class BookByIdController extends HttpServlet {
 
             if(result != 0) {
                 logger.debug("Book updated, redirecting to this book page");
-                req.setAttribute("bookToDisplayId", result);
+                req.setAttribute(RequestAttributes.BookToDisplayId.name(), result);
                 resp.sendRedirect("/books/id/" + result);
             } else {
                 logger.warn("Error while updating book in DB");

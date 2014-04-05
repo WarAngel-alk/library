@@ -3,6 +3,7 @@
 <%@ page import="com.my.dao.BooksDao" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="com.my.enums.RequestAttributes" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -26,7 +27,8 @@
 
             boolean lighter = true;
             for (Quote q : quoteList) {
-                config.getServletContext().setAttribute("quoteToDisplay", q);
+                config.getServletContext()
+                        .setAttribute(RequestAttributes.QuoteToDisplay.name(), q);
                 lighter = ! lighter;
         %>
         <div class="row quote-item-block"

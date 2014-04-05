@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.my.bussiness.beans.Book" %>
 <%@ page import="com.my.dao.BooksDao" %>
+<%@ page import="com.my.enums.RequestAttributes" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -23,11 +24,12 @@
 <div class="col-md-6 col-md-offset-3 add-block">
     <%
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Quote q = (Quote) request.getAttribute("quoteToEdit");
+        Quote q = (Quote) request.getAttribute(RequestAttributes.QuoteToEdit.name());
     %>
     <div id="resultMessageBox">
         <%
-            List<String> errorsList = (List<String>) request.getAttribute("ErrorsList");
+            List<String> errorsList =
+                    (List<String>) request.getAttribute(RequestAttributes.ErrorsList.name());
             if(errorsList != null) {
                 if(errorsList.size() == 0) { %>
         <div class="label label-success">

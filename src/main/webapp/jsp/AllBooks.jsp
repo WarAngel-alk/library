@@ -1,6 +1,7 @@
 <%@ page import="com.my.bussiness.beans.Book" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.my.dao.BooksDao" %>
+<%@ page import="com.my.enums.RequestAttributes" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -24,7 +25,7 @@
 
             boolean lighter = true;
             for (Book b : booksList) {
-                config.getServletContext().setAttribute("bookToDisplay", b);
+                config.getServletContext().setAttribute(RequestAttributes.BookToDisplay.name(), b);
                 lighter = ! lighter;
         %>
         <div class="row book-item-block"

@@ -2,6 +2,7 @@ package com.my.controllers.quotes;
 
 import com.my.bussiness.beans.Quote;
 import com.my.dao.QuotesDao;
+import com.my.enums.RequestAttributes;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
 
@@ -31,7 +32,7 @@ public class AddQuoteController extends HttpServlet {
         logger.info("Got request in AddQuoteController");
 
         logger.info("Request redirected to AddQuoteView");
-        req.setAttribute("currentPage", "addQuote");
+        req.setAttribute(RequestAttributes.CurrentPage.name(), "addQuote");
         getServletContext().getRequestDispatcher("/jsp/AddQuote.jsp").forward(req, resp);
     }
 
@@ -45,7 +46,7 @@ public class AddQuoteController extends HttpServlet {
 
         if(addResult == 0) {
             logger.warn("Error while adding quote to DB");
-            req.setAttribute("ErrorsList", Arrays.asList("Error while adding quote to DB."));
+            req.setAttribute(RequestAttributes.ErrorsList.name(), Arrays.asList("Error while adding quote to DB."));
             getServletContext().getRequestDispatcher("/jsp/AddQuote.jsp").forward(req, resp);
         } else {
             logger.info("Added quote with id=" + addResult + "; redirecting to page with new quote");

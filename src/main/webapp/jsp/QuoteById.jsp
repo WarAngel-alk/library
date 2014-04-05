@@ -1,5 +1,6 @@
 <%@ page import="com.my.dao.QuotesDao" %>
 <%@ page import="com.my.bussiness.beans.Quote" %>
+<%@ page import="com.my.enums.RequestAttributes" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -19,9 +20,10 @@
 
     <div class="col-md-12" style="padding: 0 20px; margin: 0;">
         <%
-            long id = (Long) request.getAttribute("quoteToDisplayId");
+            long id = (Long) request.getAttribute(RequestAttributes.QuoteToDisplayId.name());
             Quote quote = new QuotesDao().selectById(id);
-            config.getServletContext().setAttribute("quoteToDisplay", quote);
+            config.getServletContext()
+                    .setAttribute(RequestAttributes.QuoteToDisplay.name(), quote);
         %>
         <div class="row quote-item-block" style="background-color: #427278;" >
             <jsp:include page="/jsp/includes/quote.jsp" flush="true" />
