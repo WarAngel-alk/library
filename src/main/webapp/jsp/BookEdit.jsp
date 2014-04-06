@@ -47,7 +47,7 @@
                 <% } else {
                     for (String msg : errorsList) { %>
                         <div class="label label-danger">
-                            ${msg}
+                            <%=msg%>
                         </div>
                     <% }
                 }

@@ -1,7 +1,9 @@
 package com.my.controllers.books;
 
 import com.my.bussiness.beans.Book;
+import com.my.bussiness.beans.Quote;
 import com.my.dao.BooksDao;
+import com.my.dao.QuotesDao;
 import com.my.enums.Pages;
 import com.my.enums.RequestAttributes;
 import com.my.util.HttpUtil;
@@ -41,6 +43,11 @@ public class BookByIdController extends HttpServlet {
             // domain.com/books/id/42/edit
             String subPath = pathArray[4];
             if (subPath.equals("quotes")) {
+                Book book = new Book();
+                book.setId(id);
+                List<Quote> quoteList = new QuotesDao().selectByBook(book);
+                req.setAttribute(RequestAttributes.QuoteToDisplayList.name(), quoteList);
+
                 logger.info("Request redirected to QuotesByBookView");
                 req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.BookQuotes);
                 getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);

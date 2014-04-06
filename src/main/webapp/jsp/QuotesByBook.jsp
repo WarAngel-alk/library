@@ -22,9 +22,8 @@
 
     <div class="col-md-12">
         <%
-            Book book = new Book();
-            book.setId((Long) request.getAttribute(RequestAttributes.BookToDisplayId.name()));
-            List<Quote> quoteList = new QuotesDao().selectByBook(book);
+            List<Quote> quoteList =
+                    (List<Quote>) request.getAttribute(RequestAttributes.QuoteToDisplayList.name());
 
             boolean lighter = true;
             for (Quote q : quoteList) {
