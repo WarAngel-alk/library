@@ -10,6 +10,7 @@ package com.my.util;
 public class LogUtil {
 
     public static String getCurrentClass() {
+        // AFAIK it is only way to get class name in runtime
         try {
             throw new RuntimeException();
         } catch (Exception e) {
