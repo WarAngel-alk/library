@@ -1,14 +1,14 @@
 <%@ page import="java.util.TreeMap" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
-<%@ page import="com.my.enums.RequestAttributes" %>
+<%@ page import="com.my.enums.AttributeName" %>
 <%@ page import="com.my.enums.Pages" %>
 <div class="header-line">
     <img src="/img/logo.jpg" width="50" height="50"/>
     <%
-        Pages currentPage = (Pages) request.getAttribute(RequestAttributes.CurrentPage.name());
+        Pages currentPage = (Pages) request.getAttribute(AttributeName.CurrentPage);
         Map<String, String> messagesMap =
-                (Map) request.getAttribute(RequestAttributes.MessagesMap.name());
+                (Map) request.getAttribute(AttributeName.MessagesMap);
 
         String lblBooksClass = "header-link-passive";
         String lblQuotesClass = "header-link-passive";

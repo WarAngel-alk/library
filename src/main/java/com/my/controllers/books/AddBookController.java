@@ -3,7 +3,7 @@ package com.my.controllers.books;
 import com.my.bussiness.beans.Book;
 import com.my.dao.BooksDao;
 import com.my.enums.Pages;
-import com.my.enums.RequestAttributes;
+import com.my.enums.AttributeName;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
 
@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 import static com.my.util.LogUtil.getCurrentClass;
 
@@ -43,10 +40,10 @@ public class AddBookController extends HttpServlet {
         if(b.getPictureUrl() == null) b.setPictureUrl("");
         if(b.getComment() == null) b.setComment("");
 
-        req.setAttribute(RequestAttributes.BookToDisplay.name(), b);
+        req.setAttribute(AttributeName.BookToDisplay, b);
 
         logger.info("Request redirected to AddBookView");
-        req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AddBook);
+        req.setAttribute(AttributeName.CurrentPage, Pages.AddBook);
         getServletContext().getRequestDispatcher("/jsp/AddBook.jsp").forward(req, resp);
     }
 
@@ -61,7 +58,7 @@ public class AddBookController extends HttpServlet {
 
         if(addResult == 0) {
             logger.warn("Error while adding book to DB");
-            req.setAttribute(RequestAttributes.ErrorsList.name(),
+            req.setAttribute(AttributeName.ErrorsList,
                     Arrays.asList("Error while adding book to DB."));
             getServletContext().getRequestDispatcher("/jsp/AddBook.jsp").forward(req, resp);
         } else {

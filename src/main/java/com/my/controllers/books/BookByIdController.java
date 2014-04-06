@@ -4,8 +4,8 @@ import com.my.bussiness.beans.Book;
 import com.my.bussiness.beans.Quote;
 import com.my.dao.BooksDao;
 import com.my.dao.QuotesDao;
+import com.my.enums.AttributeName;
 import com.my.enums.Pages;
-import com.my.enums.RequestAttributes;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
 
@@ -37,7 +37,7 @@ public class BookByIdController extends HttpServlet {
         // domain.com/books/id/42
         String[] pathArray = req.getRequestURI().split("/");
         long id = Long.parseLong(pathArray[3]);
-        req.setAttribute(RequestAttributes.BookToDisplayId.name(), id);
+        req.setAttribute(AttributeName.BookToDisplayId, id);
 
         if (pathArray.length > 4) {
             // domain.com/books/id/42/edit
@@ -46,18 +46,18 @@ public class BookByIdController extends HttpServlet {
                 Book book = new Book();
                 book.setId(id);
                 List<Quote> quoteList = new QuotesDao().selectByBook(book);
-                req.setAttribute(RequestAttributes.QuoteToDisplayList.name(), quoteList);
+                req.setAttribute(AttributeName.QuoteToDisplayList, quoteList);
 
                 logger.info("Request redirected to QuotesByBookView");
-                req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.BookQuotes);
+                req.setAttribute(AttributeName.CurrentPage, Pages.BookQuotes);
                 getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);
             } else if (subPath.equals("edit")) {
                 logger.debug("Selecting book for editing from DB");
-                req.setAttribute(RequestAttributes.BookToEdit.name(),
+                req.setAttribute(AttributeName.BookToDisplay,
                         new BooksDao().selectById(id));
 
                 logger.info("Request redirecting to BookEditView");
-                req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.BookEdit);
+                req.setAttribute(AttributeName.CurrentPage, Pages.BookEdit);
                 getServletContext().getRequestDispatcher("/jsp/BookEdit.jsp").forward(req, resp);
             } else if (subPath.equals("delete")) {
                 logger.debug("Deleting book with id=" + id + " from DB");
@@ -65,20 +65,20 @@ public class BookByIdController extends HttpServlet {
 
                 logger.debug("Putting delete message to messageMap");
                 Map<String, String> messageMap =
-                        (Map<String, String>) req.getAttribute(RequestAttributes.MessagesMap.name());
+                        (Map<String, String>) req.getAttribute(AttributeName.MessagesMap);
                 if(messageMap == null) {
                     messageMap = new TreeMap<String, String>();
                 }
                 messageMap.put("success", "Book have been deleted successfully");
-                req.setAttribute(RequestAttributes.MessagesMap.name(), messageMap);
+                req.setAttribute(AttributeName.MessagesMap, messageMap);
 
                 logger.info("Request redirected to AllBooksView");
-                req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AllBooks);
+                req.setAttribute(AttributeName.CurrentPage, Pages.AllBooks);
                 resp.sendRedirect("/books");
             }
         } else {
             logger.info("Request redirected to BookByIdView");
-            req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.BookById);
+            req.setAttribute(AttributeName.CurrentPage, Pages.BookById);
             getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
         }
     }
@@ -98,7 +98,7 @@ public class BookByIdController extends HttpServlet {
 
             if(result != 0) {
                 logger.debug("Book updated, redirecting to this book page");
-                req.setAttribute(RequestAttributes.BookToDisplayId.name(), result);
+                req.setAttribute(AttributeName.BookToDisplayId, result);
                 resp.sendRedirect("/books/id/" + result);
             } else {
                 logger.warn("Error while updating book in DB");

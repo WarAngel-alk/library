@@ -3,7 +3,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.my.enums.RequestAttributes" %>
+<%@ page import="com.my.enums.AttributeName" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -24,7 +24,7 @@
     <div class="col-md-6 col-md-offset-3 add-block">
         <%
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Book book = (Book) request.getAttribute(RequestAttributes.BookToDisplay.name());
+            Book book = (Book) request.getAttribute(AttributeName.BookToDisplay);
 
             String startDate = (book.getStartDate() != null) ? sdf.format(book.getStartDate()) : "";
             String endDate = (book.getEndDate() != null) ? sdf.format(book.getEndDate()) : "";
@@ -33,7 +33,7 @@
         <div id="resultMessageBox">
             <%
                 List<String> errorsList =
-                        (List<String>) request.getAttribute(RequestAttributes.ErrorsList.name());
+                        (List<String>) request.getAttribute(AttributeName.ErrorsList);
                 if(errorsList != null) {
                     if(errorsList.size() == 0) { %>
             <div class="label label-success">

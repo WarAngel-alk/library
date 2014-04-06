@@ -1,6 +1,6 @@
 <%@ page import="com.my.dao.QuotesDao" %>
 <%@ page import="com.my.bussiness.beans.Quote" %>
-<%@ page import="com.my.enums.RequestAttributes" %>
+<%@ page import="com.my.enums.AttributeName" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad

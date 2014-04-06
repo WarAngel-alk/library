@@ -1,7 +1,7 @@
 <%@ page import="com.my.bussiness.beans.Book" %>
 <%@ page import="com.my.dao.BooksDao" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.my.enums.RequestAttributes" %>
+<%@ page import="com.my.enums.AttributeName" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -23,7 +23,7 @@
         <div id="resultMessageBox">
             <%
                 List<String> errorsList =
-                        (List<String>) request.getAttribute(RequestAttributes.ErrorsList.name());
+                        (List<String>) request.getAttribute(AttributeName.ErrorsList);
                 if(errorsList != null) {
                     if(errorsList.size() == 0) { %>
             <div class="label label-success">
@@ -41,7 +41,7 @@
         </div>
     <form method="post" accept-charset="utf-8">
         <% List<Book> booksList =
-                (List<Book>) request.getAttribute(RequestAttributes.QuoteToDisplayList.name()); %>
+                (List<Book>) request.getAttribute(AttributeName.QuoteToDisplayList); %>
         <select class="add-item" size="1" id="param_book_id" name="param_book_id" size="<%=booksList.size()%>">
             <% for(Book book : booksList) {%>
             <option value="<%=book.getId()%>">

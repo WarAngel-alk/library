@@ -1,10 +1,9 @@
 package com.my.controllers.quotes;
 
-import com.my.bussiness.beans.Book;
 import com.my.bussiness.beans.Quote;
 import com.my.dao.QuotesDao;
+import com.my.enums.AttributeName;
 import com.my.enums.Pages;
-import com.my.enums.RequestAttributes;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
 
@@ -38,17 +37,17 @@ public class QuoteByIdController extends HttpServlet {
 
         String[] pathArray = req.getRequestURI().split("/");
         long id = Long.parseLong(pathArray[3]);
-        req.setAttribute(RequestAttributes.QuoteToDisplayId.name(), id);
+        req.setAttribute(AttributeName.QuoteToDisplayId, id);
 
         if (pathArray.length > 4) {
             String subPath = pathArray[4];
             if (subPath.equals("edit")) {
                 logger.debug("Selecting quote for editing from DB");
-                req.setAttribute(RequestAttributes.QuoteToEdit.name(),
+                req.setAttribute(AttributeName.QuoteToDisplay,
                         new QuotesDao().selectById(id));
 
                 logger.info("Request redirecting to QuoteEditView");
-                req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.QuoteEdit);
+                req.setAttribute(AttributeName.CurrentPage, Pages.QuoteEdit);
                 getServletContext().getRequestDispatcher("/jsp/QuoteEdit.jsp").forward(req, resp);
             } else if (subPath.equals("delete")) {
                 logger.debug("Deleting quote with id=" + id + " from DB");
@@ -56,23 +55,23 @@ public class QuoteByIdController extends HttpServlet {
 
                 logger.debug("Putting delete message to messageMap");
                 Map<String, String> messageMap =
-                        (Map<String, String>) req.getAttribute(RequestAttributes.MessagesMap.name());
+                        (Map<String, String>) req.getAttribute(AttributeName.MessagesMap);
                 if(messageMap == null) {
                     messageMap = new TreeMap<String, String>();
                 }
                 messageMap.put("success", "Quote have been deleted successfully");
-                req.setAttribute(RequestAttributes.MessagesMap.name(), messageMap);
+                req.setAttribute(AttributeName.MessagesMap, messageMap);
 
                 logger.info("Request redirected to AllQuotesView");
-                req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AllQuotes);
+                req.setAttribute(AttributeName.CurrentPage, Pages.AllQuotes);
                 resp.sendRedirect("/quotes");
             }
         } else {
             Quote q = new QuotesDao().selectById(id);
-            req.setAttribute(RequestAttributes.QuoteToDisplay.name(), q);
+            req.setAttribute(AttributeName.QuoteToDisplay, q);
 
             logger.info("Request redirected to QuoteByIdView");
-            req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.QuoteById);
+            req.setAttribute(AttributeName.CurrentPage, Pages.QuoteById);
             getServletContext().getRequestDispatcher("/jsp/QuoteById.jsp").forward(req, resp);
         }
     }
@@ -91,7 +90,7 @@ public class QuoteByIdController extends HttpServlet {
 
             if(result != 0) {
                 logger.debug("Quote updated, redirecting to this quote page");
-                req.setAttribute(RequestAttributes.QuoteToDisplayId.name(), result);
+                req.setAttribute(AttributeName.QuoteToDisplayId, result);
                 resp.sendRedirect("/quotes/id/" + result);
             } else {
                 logger.warn("Error while updating quote in DB");

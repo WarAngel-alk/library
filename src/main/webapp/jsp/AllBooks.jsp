@@ -1,7 +1,7 @@
 <%@ page import="com.my.bussiness.beans.Book" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.my.dao.BooksDao" %>
-<%@ page import="com.my.enums.RequestAttributes" %>
+<%@ page import="com.my.enums.AttributeName" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -22,11 +22,11 @@
     <div class="col-md-12" style="padding: 0 20px; margin: 0;">
         <%
             List<Book> booksList =
-                    (List<Book>) request.getAttribute(RequestAttributes.BookToDisplayList.name());
+                    (List<Book>) request.getAttribute(AttributeName.BookToDisplayList);
 
             boolean lighter = true;
             for (Book b : booksList) {
-                config.getServletContext().setAttribute(RequestAttributes.BookToDisplay.name(), b);
+                config.getServletContext().setAttribute(AttributeName.BookToDisplay, b);
                 lighter = ! lighter;
         %>
         <div class="row book-item-block"

@@ -5,7 +5,7 @@ import com.my.bussiness.beans.Quote;
 import com.my.dao.BooksDao;
 import com.my.dao.QuotesDao;
 import com.my.enums.Pages;
-import com.my.enums.RequestAttributes;
+import com.my.enums.AttributeName;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
 
@@ -37,10 +37,10 @@ public class AddQuoteController extends HttpServlet {
 
         logger.debug("Requesting to BooksDao for all books simple list");
         List<Book> booksList = new BooksDao().selectAllSimple();
-        req.setAttribute(RequestAttributes.QuoteToDisplayList.name(), booksList);
+        req.setAttribute(AttributeName.QuoteToDisplayList, booksList);
 
         logger.info("Request redirected to AddQuoteView");
-        req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AddQuote);
+        req.setAttribute(AttributeName.CurrentPage, Pages.AddQuote);
         getServletContext().getRequestDispatcher("/jsp/AddQuote.jsp").forward(req, resp);
     }
 
@@ -54,7 +54,7 @@ public class AddQuoteController extends HttpServlet {
 
         if(addResult == 0) {
             logger.warn("Error while adding quote to DB");
-            req.setAttribute(RequestAttributes.ErrorsList.name(), Arrays.asList("Error while adding quote to DB."));
+            req.setAttribute(AttributeName.ErrorsList, Arrays.asList("Error while adding quote to DB."));
             getServletContext().getRequestDispatcher("/jsp/AddQuote.jsp").forward(req, resp);
         } else {
             logger.info("Added quote with id=" + addResult + "; redirecting to page with new quote");

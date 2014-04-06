@@ -1,7 +1,7 @@
 <%@ page import="com.my.bussiness.beans.Book" %>
 <%@ page import="com.my.dao.BooksDao" %>
 <%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.my.enums.RequestAttributes" %>
+<%@ page import="com.my.enums.AttributeName" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -21,9 +21,9 @@
 
     <div class="col-md-12" style="padding: 0 20px; margin: 0;">
         <%
-            long id = (Long) request.getAttribute(RequestAttributes.BookToDisplayId.name());
+            long id = (Long) request.getAttribute(AttributeName.BookToDisplayId);
             Book book = new BooksDao().selectById(id);
-            config.getServletContext().setAttribute(RequestAttributes.BookToDisplay.name(), book);
+            config.getServletContext().setAttribute(AttributeName.BookToDisplay, book);
         %>
         <div class="row book-item-block" style="background-color: #427278;">
             <jsp:include page="/jsp/includes/book.jsp" flush="true" />

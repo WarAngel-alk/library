@@ -3,7 +3,7 @@ package com.my.controllers.quotes;
 import com.my.bussiness.beans.Quote;
 import com.my.dao.QuotesDao;
 import com.my.enums.Pages;
-import com.my.enums.RequestAttributes;
+import com.my.enums.AttributeName;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -33,10 +33,10 @@ public class AllQuotesController extends HttpServlet {
 
         logger.debug("Requesting to QuotesDao for all quotes list");
         List<Quote> quoteList = new QuotesDao().selectAll();
-        req.setAttribute(RequestAttributes.QuoteToDisplayList.name(), quoteList);
+        req.setAttribute(AttributeName.QuoteToDisplayList, quoteList);
 
         logger.info("Request redirected to AllQuotesView");
-        req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AllQuotes);
+        req.setAttribute(AttributeName.CurrentPage, Pages.AllQuotes);
         getServletContext().getRequestDispatcher("/jsp/AllQuotes.jsp").forward(req, resp);
     }
 }

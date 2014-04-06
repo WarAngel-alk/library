@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import com.my.enums.RequestAttributes;
+import com.my.enums.AttributeName;
 import static com.my.util.LogUtil.getCurrentClass;
 
 /**
@@ -33,10 +33,10 @@ public class AllBooksController extends HttpServlet {
 
         logger.debug("Requesting to BooksDao for all books list");
         List<Book> booksList = new BooksDao().selectAll();
-        req.setAttribute(RequestAttributes.BookToDisplayList.name(), booksList);
+        req.setAttribute(AttributeName.BookToDisplayList, booksList);
 
         logger.info("Request redirected to AllBooksView");
-        req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AllBooks);
+        req.setAttribute(AttributeName.CurrentPage, Pages.AllBooks);
         getServletContext().getRequestDispatcher("/jsp/AllBooks.jsp").forward(req, resp);
     }
 }

@@ -1,9 +1,9 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="com.my.bussiness.beans.Quote" %>
-<%@ page import="com.my.enums.RequestAttributes" %>
+<%@ page import="com.my.enums.AttributeName" %>
 <% Quote quoteToDisplay =
-        (Quote) config.getServletContext().getAttribute(RequestAttributes.QuoteToDisplay.name()); %>
+        (Quote) config.getServletContext().getAttribute(AttributeName.QuoteToDisplay); %>
 <% DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy"); %>
 
 <div style="width: 100%;">

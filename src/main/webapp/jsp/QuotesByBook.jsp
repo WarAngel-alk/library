@@ -2,7 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.my.dao.QuotesDao" %>
 <%@ page import="com.my.bussiness.beans.Book" %>
-<%@ page import="com.my.enums.RequestAttributes" %>
+<%@ page import="com.my.enums.AttributeName" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -23,12 +23,12 @@
     <div class="col-md-12">
         <%
             List<Quote> quoteList =
-                    (List<Quote>) request.getAttribute(RequestAttributes.QuoteToDisplayList.name());
+                    (List<Quote>) request.getAttribute(AttributeName.QuoteToDisplayList);
 
             boolean lighter = true;
             for (Quote q : quoteList) {
                 config.getServletContext()
-                        .setAttribute(RequestAttributes.QuoteToDisplay.name(), q);
+                        .setAttribute(AttributeName.QuoteToDisplay, q);
                 lighter = ! lighter;
         %>
         <div class="row quote-item-block"
