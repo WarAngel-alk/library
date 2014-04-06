@@ -21,7 +21,8 @@
 
     <div class="col-md-12" style="padding: 0 20px; margin: 0;">
         <%
-            List<Book> booksList = new BooksDao().selectAll();
+            List<Book> booksList =
+                    (List<Book>) request.getAttribute(RequestAttributes.BookToDisplayList.name());
 
             boolean lighter = true;
             for (Book b : booksList) {

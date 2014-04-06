@@ -14,6 +14,7 @@ public enum RequestAttributes {
 
     BookToDisplayId,
     BookToDisplay,
+    BookToDisplayList,
     BookToEdit,
 
     QuoteToDisplayId,
