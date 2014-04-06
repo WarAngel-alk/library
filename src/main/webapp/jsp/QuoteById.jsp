@@ -19,12 +19,6 @@
     <%--<jsp:include page="includes/header.jsp" flush="true" />--%>
 
     <div class="col-md-12" style="padding: 0 20px; margin: 0;">
-        <%
-            long id = (Long) request.getAttribute(RequestAttributes.QuoteToDisplayId.name());
-            Quote quote = new QuotesDao().selectById(id);
-            config.getServletContext()
-                    .setAttribute(RequestAttributes.QuoteToDisplay.name(), quote);
-        %>
         <div class="row quote-item-block" style="background-color: #427278;" >
             <jsp:include page="/jsp/includes/quote.jsp" flush="true" />
         </div>

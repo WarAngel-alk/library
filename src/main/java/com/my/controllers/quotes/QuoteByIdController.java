@@ -1,5 +1,6 @@
 package com.my.controllers.quotes;
 
+import com.my.bussiness.beans.Book;
 import com.my.bussiness.beans.Quote;
 import com.my.dao.QuotesDao;
 import com.my.enums.Pages;
@@ -67,6 +68,9 @@ public class QuoteByIdController extends HttpServlet {
                 resp.sendRedirect("/quotes");
             }
         } else {
+            Quote q = new QuotesDao().selectById(id);
+            req.setAttribute(RequestAttributes.QuoteToDisplay.name(), q);
+
             logger.info("Request redirected to QuoteByIdView");
             req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.QuoteById);
             getServletContext().getRequestDispatcher("/jsp/QuoteById.jsp").forward(req, resp);
