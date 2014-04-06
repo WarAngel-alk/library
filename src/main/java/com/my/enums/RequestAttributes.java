@@ -19,6 +19,7 @@ public enum RequestAttributes {
 
     QuoteToDisplayId,
     QuoteToDisplay,
+    QuoteToDisplayList,
     QuoteToEdit,
 
     MessagesMap

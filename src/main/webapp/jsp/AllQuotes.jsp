@@ -23,7 +23,8 @@
 
     <div class="col-md-12">
         <%
-            List<Quote> quoteList = new QuotesDao().selectAll();
+            List<Quote> quoteList =
+                    (List<Quote>) request.getAttribute(RequestAttributes.QuoteToDisplayList.name());
 
             boolean lighter = true;
             for (Quote q : quoteList) {
