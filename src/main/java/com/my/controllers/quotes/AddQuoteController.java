@@ -1,6 +1,8 @@
 package com.my.controllers.quotes;
 
+import com.my.bussiness.beans.Book;
 import com.my.bussiness.beans.Quote;
+import com.my.dao.BooksDao;
 import com.my.dao.QuotesDao;
 import com.my.enums.Pages;
 import com.my.enums.RequestAttributes;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.my.util.LogUtil.getCurrentClass;
 
@@ -31,6 +34,10 @@ public class AddQuoteController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         logger.info("Got request in AddQuoteController");
+
+        logger.debug("Requesting to BooksDao for all books simple list");
+        List<Book> booksList = new BooksDao().selectAllSimple();
+        req.setAttribute(RequestAttributes.QuoteToDisplayList.name(), booksList);
 
         logger.info("Request redirected to AddQuoteView");
         req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AddQuote);

@@ -40,7 +40,8 @@
             %>
         </div>
     <form method="post" accept-charset="utf-8">
-        <% List<Book> booksList = new BooksDao().selectAllSimple(); %>
+        <% List<Book> booksList =
+                (List<Book>) request.getAttribute(RequestAttributes.QuoteToDisplayList.name()); %>
         <select class="add-item" size="1" id="param_book_id" name="param_book_id" size="<%=booksList.size()%>">
             <% for(Book book : booksList) {%>
             <option value="<%=book.getId()%>">
