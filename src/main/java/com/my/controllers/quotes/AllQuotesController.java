@@ -1,5 +1,6 @@
 package com.my.controllers.quotes;
 
+import com.my.enums.Pages;
 import com.my.enums.RequestAttributes;
 import org.apache.log4j.Logger;
 
@@ -28,7 +29,7 @@ public class AllQuotesController extends HttpServlet {
         logger.info("Got request in AllQuotesController");
 
         logger.info("Request redirected to AllQuotesView");
-        req.setAttribute(RequestAttributes.CurrentPage.name(), "allQuotes");
+        req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AllQuotes);
         getServletContext().getRequestDispatcher("/jsp/AllQuotes.jsp").forward(req, resp);
     }
 }

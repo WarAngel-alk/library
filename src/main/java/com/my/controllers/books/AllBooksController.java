@@ -1,5 +1,6 @@
 package com.my.controllers.books;
 
+import com.my.enums.Pages;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -28,7 +29,7 @@ public class AllBooksController extends HttpServlet {
         logger.info("Got request in AllBooksController");
 
         logger.info("Request redirected to AllBooksView");
-        req.setAttribute(RequestAttributes.CurrentPage.name(), "allBooks");
+        req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AllBooks);
         getServletContext().getRequestDispatcher("/jsp/AllBooks.jsp").forward(req, resp);
     }
 }

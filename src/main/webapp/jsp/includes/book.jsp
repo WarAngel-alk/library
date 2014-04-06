@@ -2,6 +2,7 @@
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="com.my.bussiness.beans.Book" %>
 <%@ page import="com.my.enums.RequestAttributes" %>
+<%@ page import="com.my.enums.Pages" %>
 <%  Book bookToDisplay =
         (Book) config.getServletContext().getAttribute(RequestAttributes.BookToDisplay.name());
     DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
@@ -26,7 +27,7 @@
                 <img src="/img/book-delete-icon.png" />
             </a>
         </div>
-        <% if(!request.getAttribute(RequestAttributes.CurrentPage.name()).equals("bookById")) { %>
+        <% if(request.getAttribute(RequestAttributes.CurrentPage.name()) != Pages.BookById) { %>
         <a href="/books/id/<%=bookToDisplay.getId()%>">
         <% } %>
             <div>
@@ -37,7 +38,7 @@
                 <span class="book-item-param-name">Author:</span>
                 <span class="book-item-param-value"><%=bookToDisplay.getAuthor()%></span>
             </div>
-        <% if(!request.getAttribute(RequestAttributes.CurrentPage.name()).equals("bookById")) { %>
+        <% if(request.getAttribute(RequestAttributes.CurrentPage.name()) != Pages.BookById) { %>
         </a>
         <% } %>
 

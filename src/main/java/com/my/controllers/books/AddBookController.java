@@ -2,6 +2,7 @@ package com.my.controllers.books;
 
 import com.my.bussiness.beans.Book;
 import com.my.dao.BooksDao;
+import com.my.enums.Pages;
 import com.my.enums.RequestAttributes;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
@@ -32,7 +33,7 @@ public class AddBookController extends HttpServlet {
         logger.info("Got request in AddBookController");
 
         logger.info("Request redirected to AddBookView");
-        req.setAttribute(RequestAttributes.CurrentPage.name(), "addBook");
+        req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AddBook);
         getServletContext().getRequestDispatcher("/jsp/AddBook.jsp").forward(req, resp);
     }
 

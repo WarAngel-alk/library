@@ -2,6 +2,7 @@ package com.my.controllers.quotes;
 
 import com.my.bussiness.beans.Quote;
 import com.my.dao.QuotesDao;
+import com.my.enums.Pages;
 import com.my.enums.RequestAttributes;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
@@ -32,7 +33,7 @@ public class AddQuoteController extends HttpServlet {
         logger.info("Got request in AddQuoteController");
 
         logger.info("Request redirected to AddQuoteView");
-        req.setAttribute(RequestAttributes.CurrentPage.name(), "addQuote");
+        req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AddQuote);
         getServletContext().getRequestDispatcher("/jsp/AddQuote.jsp").forward(req, resp);
     }
 

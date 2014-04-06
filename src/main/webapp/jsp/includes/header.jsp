@@ -2,19 +2,20 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="com.my.enums.RequestAttributes" %>
+<%@ page import="com.my.enums.Pages" %>
 <div class="header-line">
     <img src="/img/logo.jpg" width="50" height="50"/>
     <%
-        String currentPage = (String) request.getAttribute(RequestAttributes.CurrentPage.name());
+        Pages currentPage = (Pages) request.getAttribute(RequestAttributes.CurrentPage.name());
         Map<String, String> messagesMap =
                 (Map) request.getAttribute(RequestAttributes.MessagesMap.name());
 
         String lblBooksClass = "header-link-passive";
         String lblQuotesClass = "header-link-passive";
 
-        if (currentPage.equals("allBooks")) {
+        if (currentPage == Pages.AllBooks) {
             lblBooksClass = "header-link-active";
-        } else if(currentPage.equals("allQuotes")) {
+        } else if(currentPage == Pages.AllQuotes) {
             lblQuotesClass = "header-link-active";
         }
     %>

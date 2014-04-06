@@ -2,6 +2,7 @@ package com.my.controllers.books;
 
 import com.my.bussiness.beans.Book;
 import com.my.dao.BooksDao;
+import com.my.enums.Pages;
 import com.my.enums.RequestAttributes;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
@@ -41,7 +42,7 @@ public class BookByIdController extends HttpServlet {
             String subPath = pathArray[4];
             if (subPath.equals("quotes")) {
                 logger.info("Request redirected to QuotesByBookView");
-                req.setAttribute(RequestAttributes.CurrentPage.name(), "quotesByBook");
+                req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.BookQuotes);
                 getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);
             } else if (subPath.equals("edit")) {
                 logger.debug("Selecting book for editing from DB");
@@ -49,7 +50,7 @@ public class BookByIdController extends HttpServlet {
                         new BooksDao().selectById(id));
 
                 logger.info("Request redirecting to BookEditView");
-                req.setAttribute(RequestAttributes.CurrentPage.name(), "bookEdit");
+                req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.BookEdit);
                 getServletContext().getRequestDispatcher("/jsp/BookEdit.jsp").forward(req, resp);
             } else if (subPath.equals("delete")) {
                 logger.debug("Deleting book with id=" + id + " from DB");
@@ -65,12 +66,12 @@ public class BookByIdController extends HttpServlet {
                 req.setAttribute(RequestAttributes.MessagesMap.name(), messageMap);
 
                 logger.info("Request redirected to AllBooksView");
-                req.setAttribute(RequestAttributes.CurrentPage.name(), "allBooks");
+                req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AllBooks);
                 resp.sendRedirect("/books");
             }
         } else {
             logger.info("Request redirected to BookByIdView");
-            req.setAttribute(RequestAttributes.CurrentPage.name(), "bookById");
+            req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.BookById);
             getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
         }
     }

@@ -29,7 +29,7 @@
     <div id="resultMessageBox">
         <%
             List<String> errorsList =
-                    (List<String>) request.getAttribute(RequestAttributes.ErrorsList.name());
+                    (List) request.getAttribute(RequestAttributes.ErrorsList.name());
             if(errorsList != null) {
                 if(errorsList.size() == 0) { %>
         <div class="label label-success">
@@ -38,7 +38,7 @@
         <% } else {
             for (String msg : errorsList) { %>
         <div class="label label-danger">
-            ${msg}
+            <%=msg%>
         </div>
         <% }
         }
