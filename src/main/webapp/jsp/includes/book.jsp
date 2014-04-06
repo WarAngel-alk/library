@@ -6,7 +6,7 @@
 <%  Book bookToDisplay =
         (Book) config.getServletContext().getAttribute(AttributeName.BookToDisplay);
     DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
-    String pictPath = (bookToDisplay.getPictureUrl() == null) ? "/img/logo.png" : bookToDisplay.getPictureUrl();
+    String pictPath = (bookToDisplay.getPictureUrl() == null) ? "/img/icons/logo.png" : bookToDisplay.getPictureUrl();
 %>
 
 <div class="row">
@@ -18,13 +18,13 @@
         <div style="float: right;">
             <span class="book-item-info">Added: <%=dateFormat.format(bookToDisplay.getAddDate())%></span><br>
             <a href="/books/id/<%=bookToDisplay.getId()%>/edit" >
-                <img src="/img/edit-icon.png" />
+                <img src="/img/icons/edit-icon.png" />
             </a>
             <a href="/books/id/<%=bookToDisplay.getId()%>/quotes" >
-                <img src="/img/quote-icon.png" />
+                <img src="/img/icons/quote-icon.png" />
             </a>
             <a href="/books/id/<%=bookToDisplay.getId()%>/delete" >
-                <img src="/img/book-delete-icon.png" />
+                <img src="/img/icons/book-delete-icon.png" />
             </a>
         </div>
         <% if(request.getAttribute(AttributeName.CurrentPage) != Pages.BookById) { %>

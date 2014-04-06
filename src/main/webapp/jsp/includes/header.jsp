@@ -4,7 +4,7 @@
 <%@ page import="com.my.enums.AttributeName" %>
 <%@ page import="com.my.enums.Pages" %>
 <div class="header-line">
-    <img src="/img/logo.png" width="50" height="50"/>
+    <img src="/img/icons/logo.png" width="50" height="50"/>
     <%
         Pages currentPage = (Pages) request.getAttribute(AttributeName.CurrentPage);
         Map<String, String> messagesMap =
@@ -28,12 +28,12 @@
 
     <div class="header-btn" style="float: right; margin-top: 7px; margin-right: 25px" >
         <a href="/books/add">
-            <img src="/img/book-add-icon.png" width=40 height=40  />
+            <img src="/img/icons/book-add-icon.png" width=40 height=40  />
         </a>
     </div>
     <div class="header-btn" style="float: right; margin-top: 7px; margin-right: 15px" >
         <a href="/quotes/add">
-            <img src="/img/quote-add-icon.png" width=40 height=40 />
+            <img src="/img/icons/quote-add-icon.png" width=40 height=40 />
         </a>
     </div>
 </div>

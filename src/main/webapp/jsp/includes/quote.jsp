@@ -23,12 +23,12 @@
 </div>
 <div style="float: right; margin-top: 10px; margin-right: 10px;">
     <a href="/quotes/id/<%=quoteToDisplay.getId()%>/edit" >
-        <img src="/img/edit-icon.png" />
+        <img src="/img/icons/edit-icon.png" />
     </a>
     <a href="/books/id/<%=quoteToDisplay.getBookId()%>" >
-        <img src="/img/book-icon.png" />
+        <img src="/img/icons/book-icon.png" />
     </a>
     <a href="/quotes/id/<%=quoteToDisplay.getId()%>/delete" >
-        <img src="/img/quote-delete-icon.png" />
+        <img src="/img/icons/quote-delete-icon.png" />
     </a>
 </div>
