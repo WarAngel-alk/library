@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static com.my.util.LogUtil.getCurrentClass;
@@ -32,6 +34,16 @@ public class AddBookController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         logger.info("Got request in AddBookController");
+
+        logger.debug("Parsing request parameters to form book");
+        Book b = HttpUtil.fillBookWithParams(req);
+
+        if(b.getTitle() == null) b.setTitle("");
+        if(b.getAuthor() == null) b.setAuthor("");
+        if(b.getPictureUrl() == null) b.setPictureUrl("");
+        if(b.getComment() == null) b.setComment("");
+
+        req.setAttribute(RequestAttributes.BookToDisplay.name(), b);
 
         logger.info("Request redirected to AddBookView");
         req.setAttribute(RequestAttributes.CurrentPage.name(), Pages.AddBook);
