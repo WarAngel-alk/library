@@ -6,7 +6,7 @@
 <%  Book bookToDisplay =
         (Book) config.getServletContext().getAttribute(AttributeName.BookToDisplay);
     DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
-    String pictPath = (bookToDisplay.getPictureUrl() == null) ? "/img/logo.jpg" : bookToDisplay.getPictureUrl();
+    String pictPath = (bookToDisplay.getPictureUrl() == null) ? "/img/logo.png" : bookToDisplay.getPictureUrl();
 %>
 
 <div class="row">
