@@ -4,7 +4,12 @@ import com.my.bussiness.beans.Book;
 import com.my.bussiness.beans.Quote;
 import org.apache.log4j.Logger;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -82,6 +87,4 @@ public abstract class HttpUtil {
 
         return quote;
     }
-
-
 }

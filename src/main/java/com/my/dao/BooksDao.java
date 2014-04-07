@@ -200,7 +200,7 @@ public class BooksDao {
         String qryStartDate = (startDate != null) ? ("'" + sqlDate.format(startDate) + "'") : "null";
         String qryEndDate = (endDate != null) ? ("'" + sqlDate.format(endDate) + "'") : "null";
         String qryPictureUrl = (pictureUrl != null) ? ("'" + pictureUrl + "'") : "null";
-        String qryComment = (comment != null) ? ("'" + pictureUrl + "'") : "";
+        String qryComment = (comment != null) ? ("'" + comment + "'") : "null";
         String sql =
             "INSERT INTO `books` " +
                 "(`books_title`, `books_author`, " +
@@ -210,7 +210,7 @@ public class BooksDao {
                 " ('" + book.getTitle() + "'," +
                 " '" + book.getAuthor() + "'," +
                 " " + book.getRating() + "," +
-                " '" + qryComment + "'," +
+                " " + qryComment + "," +
                 " " + qryStartDate + "," +
                 " " + qryEndDate + "," +
                 " " + qryPictureUrl + "," +

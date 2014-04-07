@@ -41,6 +41,10 @@
     <servlet>
         <servlet-name>addBookController</servlet-name>
         <servlet-class>com.my.controllers.books.AddBookController</servlet-class>
+        <init-param>
+            <param-name>books_picture_dir</param-name>
+            <param-value>D:\library\pictures\</param-value>
+        </init-param>
     </servlet>
 
     <servlet>
