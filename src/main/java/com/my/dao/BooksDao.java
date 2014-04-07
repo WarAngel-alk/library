@@ -4,6 +4,7 @@ import com.my.bussiness.beans.Book;
 import com.my.dao.db.ConnectionManager;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -241,7 +242,6 @@ public class BooksDao {
             try {
                 if(rs != null) rs.close();
                 if(st != null) st.close();
-                if(con != null) con.close();
             } catch (SQLException e3) {
                 log.warn("Some resources have not been closed!", e3);
             }
@@ -306,6 +306,15 @@ public class BooksDao {
             log.info("Executing query for database to delete book with id=" + book.getId());
             st.execute("DELETE FROM `books` WHERE `books_id`=" + book.getId());
 
+//            String filePath =
+            if(book.getPictureUrl() != null) {
+                String path = book.getPictureUrl().replace("\\\\", "/").replace('/', '\\');
+//                path = path.replace('/', '\\');
+                File picture = new File(path);
+                picture.delete();
+                log.error(picture.getAbsolutePath());
+            }
+
         } catch (SQLException e1) {
             log.warn("Error while executing SQL-query, no data have been deleted", e1);
         } catch (Exception e2) {
@@ -314,17 +323,10 @@ public class BooksDao {
             log.debug("Closing resources of connection...");
             try {
                 if(st != null) st.close();
-                if(con != null) con.close();
             } catch (SQLException e3) {
                 log.warn("Some resources have not been closed!", e3);
             }
         }
-    }
-
-    public void deleteById(long id) {
-        Book book = new Book();
-        book.setId(id);
-        delete(book);
     }
 
 }

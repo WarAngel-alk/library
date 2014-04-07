@@ -61,7 +61,12 @@ public class BookByIdController extends HttpServlet {
                 getServletContext().getRequestDispatcher("/jsp/BookEdit.jsp").forward(req, resp);
             } else if (subPath.equals("delete")) {
                 logger.debug("Deleting book with id=" + id + " from DB");
-                new BooksDao().deleteById(id);
+                BooksDao bDao = new BooksDao();
+                Book book = bDao.selectById(id);
+
+                String fullPathToPicture = getServletContext().getRealPath("/") + book.getPictureUrl();
+                book.setPictureUrl(fullPathToPicture);
+                bDao.delete(book);
 
                 logger.debug("Putting delete message to messageMap");
                 Map<String, String> messageMap =

@@ -2,30 +2,22 @@ package com.my.controllers.books;
 
 import com.my.bussiness.beans.Book;
 import com.my.dao.BooksDao;
-import com.my.enums.Pages;
 import com.my.enums.AttributeName;
+import com.my.enums.Pages;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.ImageWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.awt.image.renderable.ParameterBlock;
-import java.awt.image.renderable.RenderedImageFactory;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Properties;
 
 import static com.my.util.LogUtil.getCurrentClass;
 
@@ -65,10 +57,12 @@ public class AddBookController extends HttpServlet {
         logger.debug("Filling book's properties with request parameters");
         Book book = HttpUtil.fillBookWithParams(req);
 
-        if (!loadImageToDir(req, book)) {
-            req.setAttribute(AttributeName.BookToDisplay, book);
-            getServletContext().getRequestDispatcher("/jsp/AddBook.jsp").forward(req, resp);
-            return;
+        if(book.getPictureUrl() != null) {
+            if (!loadImageToDir(req, book)) {
+                req.setAttribute(AttributeName.BookToDisplay, book);
+                getServletContext().getRequestDispatcher("/jsp/AddBook.jsp").forward(req, resp);
+                return;
+            }
         }
 
         logger.debug("Passing new book bean to BooksDao to insert in DB");
