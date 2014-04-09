@@ -57,11 +57,30 @@ public class AddBookController extends HttpServlet {
         logger.debug("Filling book's properties with request parameters");
         Book book = HttpUtil.fillBookWithParams(req);
 
+        String pictDir = "\\img\\books\\";
+
         if(book.getPictureUrl() != null) {
-            if (!loadImageToDir(req, book)) {
+            String picturePath = null;
+            try {
+                picturePath = saveImage(book.getPictureUrl(), pictDir);
+            } catch (MalformedURLException e1) {
+                logger.warn("Trying to enter invalid URL for book picture. Url: " + book.getPictureUrl());
+                req.setAttribute(AttributeName.ErrorsList, Arrays.asList("Invalid picture URL"));
+            } catch (IOException e2) {
+                logger.warn("Can not download picture by URL " + book.getPictureUrl());
+                req.setAttribute(AttributeName.ErrorsList,
+                        Arrays.asList("Error while downloading picture, try another address"));
+            }
+
+            // if picture not saved
+            if (picturePath == null) {
+                logger.info("Request redirected back to AddBook page " +
+                        "because of error while saving picture");
                 req.setAttribute(AttributeName.BookToDisplay, book);
                 getServletContext().getRequestDispatcher("/jsp/AddBook.jsp").forward(req, resp);
                 return;
+            } else {
+                book.setPictureUrl(picturePath.replace("\\", "/"));
             }
         }
 
@@ -81,37 +100,33 @@ public class AddBookController extends HttpServlet {
 
     }
 
-    private boolean loadImageToDir(HttpServletRequest req, Book book) throws ServletException, IOException {
-        String pictDir = getServletConfig().getInitParameter("books_picture_dir");
+    private String saveImage(String imgUrl, String dir)
+            throws MalformedURLException, IOException, ServletException {
+        String pathToFile = null;
+        URL url = new URL(imgUrl);
 
         try {
-            logger.debug("Loading picture from specified URL");
-            URL url = new URL(book.getPictureUrl());
-            BufferedImage pict = ImageIO.read(new URL(book.getPictureUrl()));
-
-            String[] urlParts = book.getPictureUrl().split("\\.");
+            logger.debug("Checking URL correctness");
+            String[] urlParts = imgUrl.split("\\.");
             String ext = urlParts[urlParts.length - 1];
-            String pathToSiteRoot = getServletContext().getRealPath("/");
+
+            logger.debug("Loading picture from specified URL");
+            BufferedImage pict = ImageIO.read(new URL(imgUrl));
+
             String fileName = System.currentTimeMillis() + "." + ext;
-            String relativePath = "img\\books\\" + fileName;
-            File pictFile = new File(pathToSiteRoot + relativePath);
+            pathToFile = dir + fileName;
+            String fullPath = getServletContext().getRealPath(pathToFile);
+            File pictFile = new File(fullPath);
 
             logger.debug("Writing picture to file");
             ImageIO.write(pict, ext, pictFile);
-
-            book.setPictureUrl("/img/books/" + fileName);
-        } catch (MalformedURLException | IllegalArgumentException e1) {
-            logger.info("Trying to enter invalid URL for book picture. Url: " + book.getPictureUrl());
-            req.setAttribute(AttributeName.ErrorsList,
-                    Arrays.asList("Invalid picture URL"));
-            return false;
-        } catch (IOException e2) {
-            logger.info("Can not download picture by URL " + book.getPictureUrl());
-            req.setAttribute(AttributeName.ErrorsList,
-                    Arrays.asList("Error while downloading picture, try another address"));
-            return false;
+        } catch (IOException e1) {
+            throw e1;
+        } catch (Exception e2) {
+            throw new MalformedURLException("URL is invalid");
         }
-        return true;
+
+        return pathToFile;
     }
 
 }

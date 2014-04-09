@@ -13,8 +13,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static com.my.util.LogUtil.getCurrentClass;
 
@@ -64,9 +68,15 @@ public class BookByIdController extends HttpServlet {
                 BooksDao bDao = new BooksDao();
                 Book book = bDao.selectById(id);
 
-                String fullPathToPicture = getServletContext().getRealPath("/") + book.getPictureUrl();
-                book.setPictureUrl(fullPathToPicture);
                 bDao.delete(book);
+
+//                String path
+                File picture = new File(getServletContext().getRealPath(book.getPictureUrl()));
+                if(picture.delete()) {
+                    logger.debug("Picture deleted successfully");
+                } else {
+                    logger.error("Book was deleted but picture was not deleted!");
+                }
 
                 logger.debug("Putting delete message to messageMap");
                 Map<String, String> messageMap =
