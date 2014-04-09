@@ -70,12 +70,14 @@ public class BookByIdController extends HttpServlet {
 
                 bDao.delete(book);
 
-//                String path
-                File picture = new File(getServletContext().getRealPath(book.getPictureUrl()));
-                if(picture.delete()) {
-                    logger.debug("Picture deleted successfully");
-                } else {
-                    logger.error("Book was deleted but picture was not deleted!");
+                if (book.getPictureUrl() != null) {
+                    String filePath = getServletContext().getRealPath(book.getPictureUrl()).replace("/", "\\");
+                    File picture = new File(filePath);
+                    if(picture.delete()) {
+                        logger.debug("Picture deleted successfully");
+                    } else {
+                        logger.error("Book was deleted but picture was not deleted!");
+                    }
                 }
 
                 logger.debug("Putting delete message to messageMap");
@@ -87,9 +89,12 @@ public class BookByIdController extends HttpServlet {
                 messageMap.put("success", "Book have been deleted successfully");
                 req.setAttribute(AttributeName.MessagesMap, messageMap);
 
+                List<Book> booksList = new BooksDao().selectAll();
+                req.setAttribute(AttributeName.BookToDisplayList, booksList);
+
                 logger.info("Request redirected to AllBooksView");
                 req.setAttribute(AttributeName.CurrentPage, Pages.AllBooks);
-                resp.sendRedirect("/books");
+                getServletContext().getRequestDispatcher("/jsp/AllBooks.jsp").forward(req, resp);
             }
         } else {
             logger.info("Request redirected to BookByIdView");
