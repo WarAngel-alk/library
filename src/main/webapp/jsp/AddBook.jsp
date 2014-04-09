@@ -49,22 +49,52 @@
                 }
             %>
         </div>
+
         <form method="post" accept-charset="UTF-8">
-            <input type="text" class="input-group add-item" id="param_Title" name="param_Title"
-                   required="true" placeholder="Title" value="<%=book.getTitle()%>" />
-            <input type="text" class="input-group add-item" id="param_Author" name="param_Author"
-                   required="true" placeholder="Author" value="<%=book.getAuthor()%>" />
-            <input type="number" class="input-group add-item" id="param_Rating" name="param_Rating"
-                   placeholder="Rating" min="0" max="10" value="<%=rating%>" />
-            <input type="date" class="input-group add-item" id="param_StartDate"
-                   name="param_StartDate" placeholder="Start reading" value="<%=startDate%>" />
-            <input type="date" class="input-group add-item" id="param_EndDate" name="param_EndDate"
-                   placeholder="End reading" value="<%=endDate%>" />
-            <input type="url" class="input-group add-item" id="param_PictureUrl"
-                   name="param_PictureUrl" placeholder="Picture URL" value="<%=book.getPictureUrl()%>" />
-            <textarea class="input-group add-item" id="param_Comment" name="param_Comment"
-                      placeholder="Comment" rows="5"><%=book.getComment()%></textarea>
-            <input type="submit" class="btn" id="submit_btn" value="Add book" style="float: right;" />
+            <label class="form-label" for="param_Title">Title</label><input type="text"
+                                                                            class="input-group add-item"
+                                                                            id="param_Title"
+                                                                            name="param_Title"
+                                                                            required="true"
+                                                                            placeholder="Book title"
+                                                                            value="<%=book.getTitle()%>"/>
+            <label class="form-label" for="param_Author">Author</label><input type="text"
+                                                                              class="input-group add-item"
+                                                                              id="param_Author"
+                                                                              name="param_Author"
+                                                                              required="true"
+                                                                              placeholder="Book author"
+                                                                              value="<%=book.getAuthor()%>"/>
+            <label class="form-label" for="param_Rating">Rating</label><input type="number"
+                                                                              class="input-group add-item"
+                                                                              id="param_Rating"
+                                                                              name="param_Rating"
+                                                                              placeholder="0 .. 10"
+                                                                              min="0" max="10"
+                                                                              value="<%=rating%>"/>
+            <label class="form-label" for="param_StartDate">Start reading</label><input type="date"
+                                                                                        class="input-group add-item"
+                                                                                        id="param_StartDate"
+                                                                                        name="param_StartDate"
+                                                                                        placeholder="Start reading date"
+                                                                                        value="<%=startDate%>"/>
+            <label class="form-label" for="param_EndDate">End reading</label><input type="date"
+                                                                                    class="input-group add-item"
+                                                                                    id="param_EndDate"
+                                                                                    name="param_EndDate"
+                                                                                    placeholder="End reading date"
+                                                                                    value="<%=endDate%>"/>
+            <label class="form-label" for="param_PictureUrl">Picture URL</label><input type="url"
+                                                                                       class="input-group add-item"
+                                                                                       id="param_PictureUrl"
+                                                                                       name="param_PictureUrl"
+                                                                                       placeholder="URL of picture for book"
+                                                                                       value="<%=book.getPictureUrl()%>"/>
+            <label class="form-label" for="param_Comment">Comment</label><textarea
+                class="input-group add-item" id="param_Comment" name="param_Comment"
+                placeholder="Comment for book" rows="5"><%=book.getComment()%></textarea>
+            <input type="submit" class="btn" id="submit_btn" value="Add book"
+                   style="float: right;"/>
         </form>
     </div>
 

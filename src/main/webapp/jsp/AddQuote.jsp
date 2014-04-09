@@ -42,16 +42,22 @@
     <form method="post" accept-charset="utf-8">
         <% List<Book> booksList =
                 (List<Book>) request.getAttribute(AttributeName.QuoteToDisplayList); %>
-        <select class="add-item" size="1" id="param_book_id" name="param_book_id" size="<%=booksList.size()%>">
-            <% for(Book book : booksList) {%>
-            <option value="<%=book.getId()%>">
-                <%=book.getAuthor() + " - " + book.getTitle()%>
-            </option>
-            <% } %>
-        </select>
-        <textarea class="input-group add-item" id="param_comment" name="param_comment"
-                  placeholder="Comment" rows="8" required="required" ></textarea>
-        <input type="submit" class="btn" id="submit_btn" style="float: right;" value="Add quote" />
+        <label class="form-label" for="param_book_id">Book</label><select class="add-item" size="1" id="param_book_id"
+                                                       name="param_book_id"
+                                                       size="<%=booksList.size()%>">
+        <% for (Book book : booksList) {%>
+        <option value="<%=book.getId()%>">
+            <%=book.getAuthor() + " - " + book.getTitle()%>
+        </option>
+        <% } %>
+    </select>
+        <label class="form-label" for="param_comment">Quote text</label><textarea class="input-group add-item"
+                                                               id="param_comment"
+                                                               name="param_comment"
+                                                               placeholder="Comment"
+                                                               rows="8"
+                                                               required="required"></textarea>
+        <input type="submit" class="btn" id="submit_btn" style="float: right;" value="Add quote"/>
     </form>
 
     </div>

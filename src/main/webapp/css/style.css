@@ -126,6 +126,20 @@
     margin: 5px 0px;
 
     font-weight: bold;
+    color: #3f5851;
+
+    border-radius: 7px;
+    outline: none;
+
+    padding-left: 10px;
+}
+
+.form-label {
+    font: bold 18px "Trebuchet MS";
+    color: #adc9b6;
+
+    margin-top: 5px;
+    margin-bottom: 0;
 }
 
 a {
@@ -139,5 +153,17 @@ a:hover {
 
 body {
     background-color: #627a78;
+}
+
+input::-webkit-input-placeholder {
+    color: #c5d4cb;
+}
+
+input:-moz-placeholder {
+    color: #c5d4cb;
+}
+
+textarea::-webkit-input-placeholder {
+    color: #c5d4cb;
 }
 
