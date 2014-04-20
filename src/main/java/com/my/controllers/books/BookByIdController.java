@@ -103,7 +103,10 @@ public class BookByIdController extends HttpServlet {
 
     private void deleteBookPicture(Book book) {
         if (book.getPictureUrl() != null) {
-            String filePath = getServletContext().getRealPath(book.getPictureUrl()).replace("/", "\\");
+            String filePath = getServletContext().getRealPath(
+                    book.getPictureUrl())
+                    .replace("/", System.getProperty("file.separator")
+                );
             File picture = new File(filePath);
             if(picture.delete()) {
                 logger.debug("Picture deleted successfully");

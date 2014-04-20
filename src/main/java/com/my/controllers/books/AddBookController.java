@@ -63,7 +63,13 @@ public class AddBookController extends HttpServlet {
         logger.debug("Filling book's properties with request parameters");
         Book book = HttpUtil.fillBookWithParams(req);
 
-        String pictDir = "\\img\\books\\";
+        // "/img/books/" or "\img\books\"
+        String pictDir =
+                System.getProperty("file.separator") +
+                    "img" +
+                System.getProperty("file.separator") +
+                    "books" +
+                System.getProperty("file.separator");
 
         if(book.getPictureUrl() != null) {
             if (saveBookPicture(req, resp, book, pictDir)) return;
