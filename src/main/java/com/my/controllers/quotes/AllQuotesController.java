@@ -29,8 +29,10 @@ public class AllQuotesController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        logger.info("Got request in AllQuotesController");
+        processShowAllQuotes(req, resp);
+    }
 
+    private void processShowAllQuotes(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Requesting to QuotesDao for all quotes list");
         List<Quote> quoteList = new QuotesDao().selectAll();
         req.setAttribute(AttributeName.QuoteToDisplayList, quoteList);

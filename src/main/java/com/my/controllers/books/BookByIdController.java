@@ -44,62 +44,17 @@ public class BookByIdController extends HttpServlet {
         req.setAttribute(AttributeName.BookToDisplayId, id);
 
         if (pathArray.length > 4) {
-            // domain.com/books/id/42/edit
+            // url like "domain.com/books/id/42/edit"
             String subPath = pathArray[4];
             if (subPath.equals("quotes")) {
-                Book book = new Book();
-                book.setId(id);
-                List<Quote> quoteList = new QuotesDao().selectByBook(book);
-                req.setAttribute(AttributeName.QuoteToDisplayList, quoteList);
-
-                logger.info("Request redirected to QuotesByBookView");
-                req.setAttribute(AttributeName.CurrentPage, Pages.BookQuotes);
-                getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);
+                processShowBookQuotes(req, resp, id);
             } else if (subPath.equals("edit")) {
-                logger.debug("Selecting book for editing from DB");
-                req.setAttribute(AttributeName.BookToDisplay,
-                        new BooksDao().selectById(id));
-
-                logger.info("Request redirecting to BookEditView");
-                req.setAttribute(AttributeName.CurrentPage, Pages.BookEdit);
-                getServletContext().getRequestDispatcher("/jsp/BookEdit.jsp").forward(req, resp);
+                processEditBookGet(req, resp, id);
             } else if (subPath.equals("delete")) {
-                logger.debug("Deleting book with id=" + id + " from DB");
-                BooksDao bDao = new BooksDao();
-                Book book = bDao.selectById(id);
-
-                bDao.delete(book);
-
-                if (book.getPictureUrl() != null) {
-                    String filePath = getServletContext().getRealPath(book.getPictureUrl()).replace("/", "\\");
-                    File picture = new File(filePath);
-                    if(picture.delete()) {
-                        logger.debug("Picture deleted successfully");
-                    } else {
-                        logger.error("Book was deleted but picture was not deleted!");
-                    }
-                }
-
-                logger.debug("Putting delete message to messageMap");
-                Map<String, String> messageMap =
-                        (Map<String, String>) req.getAttribute(AttributeName.MessagesMap);
-                if(messageMap == null) {
-                    messageMap = new TreeMap<String, String>();
-                }
-                messageMap.put("success", "Book have been deleted successfully");
-                req.setAttribute(AttributeName.MessagesMap, messageMap);
-
-                List<Book> booksList = new BooksDao().selectAll();
-                req.setAttribute(AttributeName.BookToDisplayList, booksList);
-
-                logger.info("Request redirected to AllBooksView");
-                req.setAttribute(AttributeName.CurrentPage, Pages.AllBooks);
-                getServletContext().getRequestDispatcher("/jsp/AllBooks.jsp").forward(req, resp);
+                processDeleteBook(req, resp, id);
             }
         } else {
-            logger.info("Request redirected to BookByIdView");
-            req.setAttribute(AttributeName.CurrentPage, Pages.BookById);
-            getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
+            processShowBook(req, resp);
         }
     }
 
@@ -109,22 +64,91 @@ public class BookByIdController extends HttpServlet {
         String[] pathArray = req.getRequestURI().split("/");
 
         if(pathArray.length > 4 && pathArray[4].equals("edit")) {
-            logger.debug("Filling book's properties with request parameters");
-            Book formedBook = HttpUtil.fillBookWithParams(req);
-            formedBook.setId(Long.parseLong(pathArray[3]));
+            processEditBookPost(req, resp, pathArray[3]);
+        }
+    }
 
-            logger.debug("Passing formed book to update entry in DB");
-            long result = new BooksDao().update(formedBook);
+    private void processShowBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("Request redirected to BookByIdView");
+        req.setAttribute(AttributeName.CurrentPage, Pages.BookById);
+        getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
+    }
 
-            if(result != 0) {
-                logger.debug("Book updated, redirecting to this book page");
-                req.setAttribute(AttributeName.BookToDisplayId, result);
-                resp.sendRedirect("/books/id/" + result);
+    private void processDeleteBook(HttpServletRequest req, HttpServletResponse resp, long id) throws ServletException, IOException {
+        logger.debug("Deleting book with id=" + id + " from DB");
+        BooksDao bDao = new BooksDao();
+        Book book = bDao.selectById(id);
+
+        bDao.delete(book);
+
+        deleteBookPicture(book);
+
+        logger.debug("Putting delete message to messageMap");
+        Map<String, String> messageMap =
+                (Map<String, String>) req.getAttribute(AttributeName.MessagesMap);
+        if(messageMap == null) {
+            messageMap = new TreeMap<String, String>();
+        }
+        messageMap.put("success", "Book have been deleted successfully");
+        req.setAttribute(AttributeName.MessagesMap, messageMap);
+
+        List<Book> booksList = new BooksDao().selectAll();
+        req.setAttribute(AttributeName.BookToDisplayList, booksList);
+
+        logger.info("Request redirected to AllBooksView");
+        req.setAttribute(AttributeName.CurrentPage, Pages.AllBooks);
+        getServletContext().getRequestDispatcher("/jsp/AllBooks.jsp").forward(req, resp);
+    }
+
+    private void deleteBookPicture(Book book) {
+        if (book.getPictureUrl() != null) {
+            String filePath = getServletContext().getRealPath(book.getPictureUrl()).replace("/", "\\");
+            File picture = new File(filePath);
+            if(picture.delete()) {
+                logger.debug("Picture deleted successfully");
             } else {
-                logger.warn("Error while updating book in DB");
-                List<String> errors = Arrays.asList("Error while updating book in DB. Try again later.");
-                resp.sendRedirect(req.getRequestURI());
+                logger.error("Book was deleted but picture was not deleted!");
             }
+        }
+    }
+
+    private void processEditBookGet(HttpServletRequest req, HttpServletResponse resp, long id) throws ServletException, IOException {
+        logger.debug("Selecting book for editing from DB");
+        req.setAttribute(AttributeName.BookToDisplay,
+                new BooksDao().selectById(id));
+
+        logger.info("Request redirecting to BookEditView");
+        req.setAttribute(AttributeName.CurrentPage, Pages.BookEdit);
+        getServletContext().getRequestDispatcher("/jsp/BookEdit.jsp").forward(req, resp);
+    }
+
+    private void processShowBookQuotes(HttpServletRequest req, HttpServletResponse resp, long id) throws ServletException, IOException {
+        Book book = new Book();
+        book.setId(id);
+        List<Quote> quoteList = new QuotesDao().selectByBook(book);
+        req.setAttribute(AttributeName.QuoteToDisplayList, quoteList);
+
+        logger.info("Request redirected to QuotesByBookView");
+        req.setAttribute(AttributeName.CurrentPage, Pages.BookQuotes);
+        getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);
+    }
+
+    private void processEditBookPost(HttpServletRequest req, HttpServletResponse resp, String s) throws IOException {
+        logger.debug("Filling book's properties with request parameters");
+        Book formedBook = HttpUtil.fillBookWithParams(req);
+        formedBook.setId(Long.parseLong(s));
+
+        logger.debug("Passing formed book to update entry in DB");
+        long result = new BooksDao().update(formedBook);
+
+        if(result != 0) {
+            logger.debug("Book updated, redirecting to this book page");
+            req.setAttribute(AttributeName.BookToDisplayId, result);
+            resp.sendRedirect("/books/id/" + result);
+        } else {
+            logger.warn("Error while updating book in DB");
+            List<String> errors = Arrays.asList("Error while updating book in DB. Try again later.");
+            resp.sendRedirect(req.getRequestURI());
         }
     }
 }

@@ -33,8 +33,10 @@ public class AddQuoteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        logger.info("Got request in AddQuoteController");
+        processAddQuoteGet(req, resp);
+    }
 
+    private void processAddQuoteGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Requesting to BooksDao for all books simple list");
         List<Book> booksList = new BooksDao().selectAllSimple();
         req.setAttribute(AttributeName.QuoteToDisplayList, booksList);
@@ -46,8 +48,10 @@ public class AddQuoteController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("Getting post request in AddQuoteController");
+        processAddQuotePost(req, resp);
+    }
 
+    private void processAddQuotePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Filling quote's properties with request parameters");
         Quote quote = HttpUtil.fillQuoteWithParams(req);
         long addResult = new QuotesDao().add(quote);

@@ -35,8 +35,10 @@ public class AddBookController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        logger.info("Got request in AddBookController");
+        processAddBookGet(req, resp);
+    }
 
+    private void processAddBookGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Parsing request parameters to form book");
         Book b = HttpUtil.fillBookWithParams(req);
 
@@ -54,34 +56,17 @@ public class AddBookController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processAddBookPost(req, resp);
+    }
+
+    private void processAddBookPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Filling book's properties with request parameters");
         Book book = HttpUtil.fillBookWithParams(req);
 
         String pictDir = "\\img\\books\\";
 
         if(book.getPictureUrl() != null) {
-            String picturePath = null;
-            try {
-                picturePath = saveImage(book.getPictureUrl(), pictDir);
-            } catch (MalformedURLException e1) {
-                logger.warn("Trying to enter invalid URL for book picture. Url: " + book.getPictureUrl());
-                req.setAttribute(AttributeName.ErrorsList, Arrays.asList("Invalid picture URL"));
-            } catch (IOException e2) {
-                logger.warn("Can not download picture by URL " + book.getPictureUrl());
-                req.setAttribute(AttributeName.ErrorsList,
-                        Arrays.asList("Error while downloading picture, try another address"));
-            }
-
-            // if picture not saved
-            if (picturePath == null) {
-                logger.info("Request redirected back to AddBook page " +
-                        "because of error while saving picture");
-                req.setAttribute(AttributeName.BookToDisplay, book);
-                getServletContext().getRequestDispatcher("/jsp/AddBook.jsp").forward(req, resp);
-                return;
-            } else {
-                book.setPictureUrl(picturePath.replace("\\", "/"));
-            }
+            if (saveBookPicture(req, resp, book, pictDir)) return;
         }
 
         logger.debug("Passing new book bean to BooksDao to insert in DB");
@@ -97,7 +82,32 @@ public class AddBookController extends HttpServlet {
         } else {
             resp.sendRedirect("/books/id/" + addResult);
         }
+    }
 
+    private boolean saveBookPicture(HttpServletRequest req, HttpServletResponse resp, Book book, String pictDir) throws ServletException, IOException {
+        String picturePath = null;
+        try {
+            picturePath = saveImage(book.getPictureUrl(), pictDir);
+        } catch (MalformedURLException e1) {
+            logger.warn("Trying to enter invalid URL for book picture. Url: " + book.getPictureUrl());
+            req.setAttribute(AttributeName.ErrorsList, Arrays.asList("Invalid picture URL"));
+        } catch (IOException e2) {
+            logger.warn("Can not download picture by URL " + book.getPictureUrl());
+            req.setAttribute(AttributeName.ErrorsList,
+                    Arrays.asList("Error while downloading picture, try another address"));
+        }
+
+        // if picture not saved
+        if (picturePath == null) {
+            logger.info("Request redirected back to AddBook page " +
+                    "because of error while saving picture");
+            req.setAttribute(AttributeName.BookToDisplay, book);
+            getServletContext().getRequestDispatcher("/jsp/AddBook.jsp").forward(req, resp);
+            return true;
+        } else {
+            book.setPictureUrl(picturePath.replace("\\", "/"));
+        }
+        return false;
     }
 
     private String saveImage(String imgUrl, String dir)

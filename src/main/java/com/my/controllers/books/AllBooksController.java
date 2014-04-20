@@ -2,6 +2,7 @@ package com.my.controllers.books;
 
 import com.my.bussiness.beans.Book;
 import com.my.dao.BooksDao;
+import com.my.enums.AttributeName;
 import com.my.enums.Pages;
 import org.apache.log4j.Logger;
 
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import com.my.enums.AttributeName;
 import static com.my.util.LogUtil.getCurrentClass;
 
 /**
@@ -29,8 +29,10 @@ public class AllBooksController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        logger.info("Got request in AllBooksController");
+        processShowAllBooks(req, resp);
+    }
 
+    private void processShowAllBooks(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Requesting to BooksDao for all books list");
         List<Book> booksList = new BooksDao().selectAll();
         req.setAttribute(AttributeName.BookToDisplayList, booksList);
