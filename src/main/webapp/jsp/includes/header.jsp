@@ -4,7 +4,7 @@
 <%@ page import="com.my.enums.AttributeName" %>
 <%@ page import="com.my.enums.Pages" %>
 <div class="header-line">
-    <img src="/img/icons/logo.png" width="50" height="50"/>
+    <a href="/"><img src="/img/icons/logo.png" width="50" height="50"/></a>
     <%
         Pages currentPage = (Pages) request.getAttribute(AttributeName.CurrentPage);
         Map<String, String> messagesMap =
