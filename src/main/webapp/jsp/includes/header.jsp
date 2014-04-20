@@ -1,13 +1,13 @@
-<%@ page import="java.util.TreeMap" %>
+<%@ page import="com.my.enums.AttributeName" %>
+<%@ page import="com.my.enums.MessageType" %>
+<%@ page import="com.my.enums.Pages" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
-<%@ page import="com.my.enums.AttributeName" %>
-<%@ page import="com.my.enums.Pages" %>
 <div class="header-line">
     <a href="/"><img src="/img/icons/logo.png" width="50" height="50"/></a>
     <%
         Pages currentPage = (Pages) request.getAttribute(AttributeName.CurrentPage);
-        Map<String, String> messagesMap =
+        Map<MessageType, String> messagesMap =
                 (Map) request.getAttribute(AttributeName.MessagesMap);
 
         String lblBooksClass = "header-link-passive";
@@ -40,17 +40,17 @@
 
 <%
     if (messagesMap != null) {
-        Set<String> keys = messagesMap.keySet();
+        Set<MessageType> keys = messagesMap.keySet();
 
-        for(String key : keys) {
-            String msgType;
-            if (key.equals("danger")) {
-                msgType = "label-danger";
-            } else if (key.equals("warning")) {
-                msgType = "label-warning";
-            } else if (key.equals("success")) {
+        for(MessageType key : keys) {
+            String msgType = "label-info";
+            if (key == MessageType.Success) {
                 msgType = "label-success";
-            } else {
+            } else if (key == MessageType.Warning) {
+                msgType = "label-warning";
+            } else if (key == MessageType.Danger) {
+                msgType = "label-danger";
+            } else if (key == MessageType.Info) {
                 msgType = "label-info";
             }
 %>

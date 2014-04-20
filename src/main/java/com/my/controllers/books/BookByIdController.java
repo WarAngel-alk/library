@@ -5,6 +5,7 @@ import com.my.bussiness.beans.Quote;
 import com.my.dao.BooksDao;
 import com.my.dao.QuotesDao;
 import com.my.enums.AttributeName;
+import com.my.enums.MessageType;
 import com.my.enums.Pages;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
@@ -84,12 +85,12 @@ public class BookByIdController extends HttpServlet {
         deleteBookPicture(book);
 
         logger.debug("Putting delete message to messageMap");
-        Map<String, String> messageMap =
-                (Map<String, String>) req.getAttribute(AttributeName.MessagesMap);
+        Map<MessageType, String> messageMap =
+                (Map<MessageType, String>) req.getAttribute(AttributeName.MessagesMap);
         if(messageMap == null) {
-            messageMap = new TreeMap<String, String>();
+            messageMap = new TreeMap<MessageType, String>();
         }
-        messageMap.put("success", "Book have been deleted successfully");
+        messageMap.put(MessageType.Success, "Book have been deleted successfully");
         req.setAttribute(AttributeName.MessagesMap, messageMap);
 
         List<Book> booksList = new BooksDao().selectAll();
