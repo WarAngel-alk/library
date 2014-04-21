@@ -11,6 +11,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="bd" uri="/jsp/taglibs/BeanDisplay.tld" %>
 <html>
 <head>
     <title>Quote by id</title>
@@ -27,13 +28,11 @@
 
             boolean lighter = true;
             for (Quote q : quoteList) {
-                config.getServletContext()
-                        .setAttribute(AttributeName.QuoteToDisplay, q);
                 lighter = ! lighter;
         %>
         <div class="row quote-item-block"
              style="background-color: <%=(lighter) ? "#48888f" : "#427278"%>">
-            <jsp:include page="/jsp/includes/quote.jsp" flush="true" />
+            <bd:quote quote="<%=q%>" />
         </div>
         <% } %>
     </div>

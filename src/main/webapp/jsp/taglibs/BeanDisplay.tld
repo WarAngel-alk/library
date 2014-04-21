@@ -26,6 +26,19 @@
             <type>boolean</type>
         </attribute>
     </tag>
+
+    <tag>
+        <name>quote</name>
+        <tag-class>com.my.taglibs.bean.QuoteTag</tag-class>
+        <body-content>JSP</body-content>
+
+        <attribute>
+            <name>quote</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>com.my.bussiness.beans.Quote</type>
+        </attribute>
+    </tag>
     <!-- Invoke 'Generate' action to add tags or functions -->
 
 <!--
