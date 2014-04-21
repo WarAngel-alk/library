@@ -22,8 +22,7 @@
 
     <div class="col-md-12" style="padding: 0 20px; margin: 0;">
         <%
-            long id = (Long) request.getAttribute(AttributeName.BookToDisplayId);
-            Book book = new BooksDao().selectById(id);
+            Book book = (Book) request.getAttribute(AttributeName.BookToDisplay);
         %>
         <div class="row book-item-block" style="background-color: #427278;">
             <bd:book book="<%=book%>" dontMakeLinkToBook="<%=true%>" />

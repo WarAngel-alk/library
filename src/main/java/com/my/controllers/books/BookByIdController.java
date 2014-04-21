@@ -55,7 +55,7 @@ public class BookByIdController extends HttpServlet {
                 processDeleteBook(req, resp, id);
             }
         } else {
-            processShowBook(req, resp);
+            processShowBook(req, resp, id);
         }
     }
 
@@ -69,8 +69,13 @@ public class BookByIdController extends HttpServlet {
         }
     }
 
-    private void processShowBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void processShowBook(HttpServletRequest req, HttpServletResponse resp, long id) throws ServletException, IOException {
         logger.info("Request redirected to BookByIdView");
+
+        logger.info("Get book from DB");
+        Book book = new BooksDao().selectById(id);
+        req.setAttribute(AttributeName.BookToDisplay, book);
+
         req.setAttribute(AttributeName.CurrentPage, Pages.BookById);
         getServletContext().getRequestDispatcher("/jsp/BookById.jsp").forward(req, resp);
     }
