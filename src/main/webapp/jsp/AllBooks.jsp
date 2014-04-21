@@ -10,6 +10,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="bd" uri="/jsp/taglibs/BeanDisplay.tld" %>
 <html>
 <head>
     <title>All books</title>
@@ -26,12 +27,11 @@
 
             boolean lighter = true;
             for (Book b : booksList) {
-                config.getServletContext().setAttribute(AttributeName.BookToDisplay, b);
                 lighter = ! lighter;
         %>
         <div class="row book-item-block"
              style="background-color: <%=(lighter) ? "#48888f" : "#427278"%>" >
-            <jsp:include page="/jsp/includes/book.jsp" flush="true" />
+            <bd:book book="<%=b%>" />
         </div>
         <% } %>
     </div>

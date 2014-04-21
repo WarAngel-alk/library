@@ -10,6 +10,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="bd" uri="/jsp/taglibs/BeanDisplay.tld" %>
 <html>
 <head>
     <title>Book by id</title>
@@ -23,10 +24,9 @@
         <%
             long id = (Long) request.getAttribute(AttributeName.BookToDisplayId);
             Book book = new BooksDao().selectById(id);
-            config.getServletContext().setAttribute(AttributeName.BookToDisplay, book);
         %>
         <div class="row book-item-block" style="background-color: #427278;">
-            <jsp:include page="/jsp/includes/book.jsp" flush="true" />
+            <bd:book book="<%=book%>" dontMakeLinkToBook="<%=true%>" />
         </div>
     </div>
 
