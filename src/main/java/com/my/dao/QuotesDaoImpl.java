@@ -22,7 +22,7 @@ import static com.my.util.LogUtil.getCurrentClass;
  * Time: 21:16
  * To change this template use File | Settings | File Templates.
  */
-public class QuotesDao implements com.my.dao.interfaces.QuotesDao {
+public class QuotesDaoImpl implements com.my.dao.interfaces.QuotesDao {
 
     // TODO: Make possible adding quotes without linking with book
 

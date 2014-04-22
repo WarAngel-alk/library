@@ -2,8 +2,10 @@ package com.my.controllers.books;
 
 import com.my.bussiness.beans.Book;
 import com.my.bussiness.beans.Quote;
-import com.my.dao.BooksDao;
-import com.my.dao.QuotesDao;
+import com.my.dao.BooksDaoImpl;
+import com.my.dao.QuotesDaoImpl;
+import com.my.dao.interfaces.BooksDao;
+import com.my.dao.interfaces.QuotesDao;
 import com.my.enums.AttributeName;
 import com.my.enums.MessageType;
 import com.my.enums.Pages;
@@ -33,6 +35,9 @@ import static com.my.util.LogUtil.getCurrentClass;
 public class BookByIdController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(getCurrentClass());
+
+    private final BooksDao bDao = new BooksDaoImpl();
+    private final QuotesDao qDao = new QuotesDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -73,7 +78,7 @@ public class BookByIdController extends HttpServlet {
         logger.info("Request redirected to BookByIdView");
 
         logger.info("Get book from DB");
-        Book book = new BooksDao().selectById(id);
+        Book book = bDao.selectById(id);
         req.setAttribute(AttributeName.BookToDisplay, book);
 
         req.setAttribute(AttributeName.CurrentPage, Pages.BookById);
@@ -82,7 +87,6 @@ public class BookByIdController extends HttpServlet {
 
     private void processDeleteBook(HttpServletRequest req, HttpServletResponse resp, long id) throws ServletException, IOException {
         logger.debug("Deleting book with id=" + id + " from DB");
-        BooksDao bDao = new BooksDao();
         Book book = bDao.selectById(id);
 
         bDao.delete(book);
@@ -98,7 +102,7 @@ public class BookByIdController extends HttpServlet {
         messageMap.put(MessageType.Success, "Book have been deleted successfully");
         req.setAttribute(AttributeName.MessagesMap, messageMap);
 
-        List<Book> booksList = new BooksDao().selectAll();
+        List<Book> booksList = bDao.selectAll();
         req.setAttribute(AttributeName.BookToDisplayList, booksList);
 
         logger.info("Request redirected to AllBooksView");
@@ -124,7 +128,7 @@ public class BookByIdController extends HttpServlet {
     private void processEditBookGet(HttpServletRequest req, HttpServletResponse resp, long id) throws ServletException, IOException {
         logger.debug("Selecting book for editing from DB");
         req.setAttribute(AttributeName.BookToDisplay,
-                new BooksDao().selectById(id));
+                bDao.selectById(id));
 
         logger.info("Request redirecting to BookEditView");
         req.setAttribute(AttributeName.CurrentPage, Pages.BookEdit);
@@ -134,7 +138,7 @@ public class BookByIdController extends HttpServlet {
     private void processShowBookQuotes(HttpServletRequest req, HttpServletResponse resp, long id) throws ServletException, IOException {
         Book book = new Book();
         book.setId(id);
-        List<Quote> quoteList = new QuotesDao().selectByBook(book);
+        List<Quote> quoteList = qDao.selectByBook(book);
         req.setAttribute(AttributeName.QuoteToDisplayList, quoteList);
 
         logger.info("Request redirected to QuotesByBookView");
@@ -148,7 +152,7 @@ public class BookByIdController extends HttpServlet {
         formedBook.setId(Long.parseLong(s));
 
         logger.debug("Passing formed book to update entry in DB");
-        long result = new BooksDao().update(formedBook);
+        long result = bDao.update(formedBook);
 
         if(result != 0) {
             logger.debug("Book updated, redirecting to this book page");

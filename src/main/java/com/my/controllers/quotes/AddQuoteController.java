@@ -2,10 +2,12 @@ package com.my.controllers.quotes;
 
 import com.my.bussiness.beans.Book;
 import com.my.bussiness.beans.Quote;
-import com.my.dao.BooksDao;
-import com.my.dao.QuotesDao;
-import com.my.enums.Pages;
+import com.my.dao.BooksDaoImpl;
+import com.my.dao.QuotesDaoImpl;
+import com.my.dao.interfaces.BooksDao;
+import com.my.dao.interfaces.QuotesDao;
 import com.my.enums.AttributeName;
+import com.my.enums.Pages;
 import com.my.util.HttpUtil;
 import org.apache.log4j.Logger;
 
@@ -30,6 +32,9 @@ public class AddQuoteController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(getCurrentClass());
 
+    private final QuotesDao qDao = new QuotesDaoImpl();
+    private final BooksDao bDao = new BooksDaoImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -38,7 +43,7 @@ public class AddQuoteController extends HttpServlet {
 
     private void processAddQuoteGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Requesting to BooksDao for all books simple list");
-        List<Book> booksList = new BooksDao().selectAllSimple();
+        List<Book> booksList = bDao.selectAllSimple();
         req.setAttribute(AttributeName.QuoteToDisplayList, booksList);
 
         logger.info("Request redirected to AddQuoteView");
@@ -54,7 +59,7 @@ public class AddQuoteController extends HttpServlet {
     private void processAddQuotePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Filling quote's properties with request parameters");
         Quote quote = HttpUtil.fillQuoteWithParams(req);
-        long addResult = new QuotesDao().add(quote);
+        long addResult = qDao.add(quote);
 
         if(addResult == 0) {
             logger.warn("Error while adding quote to DB");

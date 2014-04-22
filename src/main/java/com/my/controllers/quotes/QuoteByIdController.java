@@ -1,7 +1,8 @@
 package com.my.controllers.quotes;
 
 import com.my.bussiness.beans.Quote;
-import com.my.dao.QuotesDao;
+import com.my.dao.QuotesDaoImpl;
+import com.my.dao.interfaces.QuotesDao;
 import com.my.enums.AttributeName;
 import com.my.enums.MessageType;
 import com.my.enums.Pages;
@@ -30,6 +31,8 @@ import static com.my.util.LogUtil.getCurrentClass;
 public class QuoteByIdController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(getCurrentClass());
+
+    private final QuotesDao qDao = new QuotesDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -62,7 +65,7 @@ public class QuoteByIdController extends HttpServlet {
     }
 
     private void processShowQuote(HttpServletRequest req, HttpServletResponse resp, long id) throws ServletException, IOException {
-        Quote q = new QuotesDao().selectById(id);
+        Quote q = qDao.selectById(id);
         req.setAttribute(AttributeName.QuoteToDisplay, q);
 
         logger.info("Request redirected to QuoteByIdView");
@@ -72,7 +75,7 @@ public class QuoteByIdController extends HttpServlet {
 
     private void processDeleteQuote(HttpServletRequest req, HttpServletResponse resp, long id) throws IOException {
         logger.debug("Deleting quote with id=" + id + " from DB");
-        new QuotesDao().deleteById(id);
+        qDao.deleteById(id);
 
         logger.debug("Putting delete message to messageMap");
         Map<MessageType, String> messageMap =
@@ -91,7 +94,7 @@ public class QuoteByIdController extends HttpServlet {
     private void processEditQuoteGet(HttpServletRequest req, HttpServletResponse resp, long id) throws ServletException, IOException {
         logger.debug("Selecting quote for editing from DB");
         req.setAttribute(AttributeName.QuoteToDisplay,
-                new QuotesDao().selectById(id));
+                qDao.selectById(id));
 
         logger.info("Request redirecting to QuoteEditView");
         req.setAttribute(AttributeName.CurrentPage, Pages.QuoteEdit);
@@ -104,7 +107,7 @@ public class QuoteByIdController extends HttpServlet {
         formedQuote.setId(Long.parseLong(s));
 
         logger.debug("Passing formed book to update entry in DB");
-        long result = new QuotesDao().update(formedQuote);
+        long result = qDao.update(formedQuote);
 
         if(result != 0) {
             logger.debug("Quote updated, redirecting to this quote page");

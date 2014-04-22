@@ -1,7 +1,8 @@
 package com.my.controllers.books;
 
 import com.my.bussiness.beans.Book;
-import com.my.dao.BooksDao;
+import com.my.dao.BooksDaoImpl;
+import com.my.dao.interfaces.BooksDao;
 import com.my.enums.AttributeName;
 import com.my.enums.Pages;
 import com.my.util.HttpUtil;
@@ -31,6 +32,8 @@ import static com.my.util.LogUtil.getCurrentClass;
 public class AddBookController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(getCurrentClass());
+
+    private final BooksDao bDao = new BooksDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -76,7 +79,6 @@ public class AddBookController extends HttpServlet {
         }
 
         logger.debug("Passing new book bean to BooksDao to insert in DB");
-        BooksDao bDao = new BooksDao();
         long addResult = bDao.add(book);
 
         if(addResult == 0) {

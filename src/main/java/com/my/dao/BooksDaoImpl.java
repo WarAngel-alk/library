@@ -22,7 +22,7 @@ import static com.my.util.LogUtil.getCurrentClass;
  * Time: 21:15
  * To change this template use File | Settings | File Templates.
  */
-public class BooksDao implements com.my.dao.interfaces.BooksDao {
+public class BooksDaoImpl implements com.my.dao.interfaces.BooksDao {
 
     private static final Logger log = Logger.getLogger(getCurrentClass());
 

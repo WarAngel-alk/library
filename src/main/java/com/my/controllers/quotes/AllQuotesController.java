@@ -1,9 +1,10 @@
 package com.my.controllers.quotes;
 
 import com.my.bussiness.beans.Quote;
-import com.my.dao.QuotesDao;
-import com.my.enums.Pages;
+import com.my.dao.QuotesDaoImpl;
+import com.my.dao.interfaces.QuotesDao;
 import com.my.enums.AttributeName;
+import com.my.enums.Pages;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -26,6 +27,8 @@ public class AllQuotesController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(getCurrentClass());
 
+    private final QuotesDao qDao = new QuotesDaoImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -34,7 +37,7 @@ public class AllQuotesController extends HttpServlet {
 
     private void processShowAllQuotes(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Requesting to QuotesDao for all quotes list");
-        List<Quote> quoteList = new QuotesDao().selectAll();
+        List<Quote> quoteList = qDao.selectAll();
         req.setAttribute(AttributeName.QuoteToDisplayList, quoteList);
 
         logger.info("Request redirected to AllQuotesView");
