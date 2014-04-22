@@ -1,7 +1,9 @@
 package com.my.controllers.quotes;
 
 import com.my.bussiness.beans.Quote;
+import com.my.dao.BooksDaoImpl;
 import com.my.dao.QuotesDaoImpl;
+import com.my.dao.interfaces.BooksDao;
 import com.my.dao.interfaces.QuotesDao;
 import com.my.enums.AttributeName;
 import com.my.enums.MessageType;
@@ -33,6 +35,7 @@ public class QuoteByIdController extends HttpServlet {
     private static final Logger logger = Logger.getLogger(getCurrentClass());
 
     private final QuotesDao qDao = new QuotesDaoImpl();
+    private final BooksDao bDao = new BooksDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -93,8 +96,8 @@ public class QuoteByIdController extends HttpServlet {
 
     private void processEditQuoteGet(HttpServletRequest req, HttpServletResponse resp, long id) throws ServletException, IOException {
         logger.debug("Selecting quote for editing from DB");
-        req.setAttribute(AttributeName.QuoteToDisplay,
-                qDao.selectById(id));
+        req.setAttribute(AttributeName.QuoteToDisplay, qDao.selectById(id));
+        req.setAttribute(AttributeName.BookToDisplayList, bDao.selectAllSimple());
 
         logger.info("Request redirecting to QuoteEditView");
         req.setAttribute(AttributeName.CurrentPage, Pages.QuoteEdit);

@@ -1,9 +1,8 @@
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.my.bussiness.beans.Quote" %>
-<%@ page import="java.util.List" %>
 <%@ page import="com.my.bussiness.beans.Book" %>
-<%@ page import="com.my.dao.BooksDao" %>
-<%@ page import="com.my.enums.AttributeName" %>
+<%@ page import="com.my.bussiness.beans.Quote" %>
+<%@ page import="com.my.dao.BooksDaoImpl" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
@@ -46,7 +45,8 @@
         %>
     </div>
     <form method="post" accept-charset="utf-8">
-        <% List<Book> booksList = new BooksDao().selectAllSimple(); %>
+        <% List<Book> booksList =
+                (List<Book>) request.getAttribute(AttributeName.BookToDisplayList); %>
         <select class="add-item" size="1" id="param_book_id" name="param_book_id" size="<%=booksList.size()%>">
             <% for(Book book : booksList) {%>
             <option
