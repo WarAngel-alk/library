@@ -283,7 +283,7 @@ public class QuotesDaoImpl implements com.my.dao.interfaces.QuotesDao {
                 "FROM" +
                     "`quotes`" +
                     "JOIN `books` ON `books_id`=`quotes_book_id`" +
-                "WHERE `books_id`=1"
+                "WHERE `books_id`=" + book.getId()
             );
 
             log.debug("Creation list with quotes from book");
