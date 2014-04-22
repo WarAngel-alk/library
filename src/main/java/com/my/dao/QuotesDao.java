@@ -22,7 +22,7 @@ import static com.my.util.LogUtil.getCurrentClass;
  * Time: 21:16
  * To change this template use File | Settings | File Templates.
  */
-public class QuotesDao {
+public class QuotesDao implements com.my.dao.interfaces.QuotesDao {
 
     // TODO: Make possible adding quotes without linking with book
 
@@ -31,6 +31,7 @@ public class QuotesDao {
     private static final SimpleDateFormat sqlDate = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat sqlDateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
+    @Override
     public List<Quote> selectAll() {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -84,6 +85,7 @@ public class QuotesDao {
         return resultList;
     }
 
+    @Override
     public Quote selectById(long id) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -137,6 +139,7 @@ public class QuotesDao {
         return quote;
     }
 
+    @Override
     public long add(Quote q) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -184,6 +187,7 @@ public class QuotesDao {
         return result;
     }
 
+    @Override
     public void delete(Quote q) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -210,12 +214,14 @@ public class QuotesDao {
         }
     }
 
+    @Override
     public void deleteById(long id) {
         Quote quote = new Quote();
         quote.setId(id);
         delete(quote);
     }
 
+    @Override
     public long update(Quote q) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -257,6 +263,7 @@ public class QuotesDao {
         return result;
     }
 
+    @Override
     public List<Quote> selectByBook(Book book) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();

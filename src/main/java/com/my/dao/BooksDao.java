@@ -22,13 +22,14 @@ import static com.my.util.LogUtil.getCurrentClass;
  * Time: 21:15
  * To change this template use File | Settings | File Templates.
  */
-public class BooksDao {
+public class BooksDao implements com.my.dao.interfaces.BooksDao {
 
     private static final Logger log = Logger.getLogger(getCurrentClass());
 
     private static final SimpleDateFormat sqlDate = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat sqlDateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
+    @Override
     public List<Book> selectAll() {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -83,6 +84,7 @@ public class BooksDao {
         return resultList;
     }
 
+    @Override
     public List<Book> selectAllSimple() {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -129,6 +131,7 @@ public class BooksDao {
         return resultList;
     }
 
+    @Override
     public Book selectById(long id) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -184,6 +187,7 @@ public class BooksDao {
         return book;
     }
 
+    @Override
     public long add(Book book) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -249,6 +253,7 @@ public class BooksDao {
         return result;
     }
 
+    @Override
     public long update(Book b) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
@@ -294,6 +299,7 @@ public class BooksDao {
         return result;
     }
 
+    @Override
     public void delete(Book book) {
         log.debug("Getting connection from pool");
         Connection con = ConnectionManager.getInstance().getConnection();
