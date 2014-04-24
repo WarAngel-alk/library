@@ -150,7 +150,7 @@ public class BookByIdController extends HttpServlet {
         getServletContext().getRequestDispatcher("/jsp/QuotesByBook.jsp").forward(req, resp);
     }
 
-    private void processEditBookPost(HttpServletRequest req, HttpServletResponse resp, String s) throws IOException {
+    private void processEditBookPost(HttpServletRequest req, HttpServletResponse resp, String s) throws IOException, ServletException {
         logger.debug("Filling book's properties with request parameters");
         Book formedBook = HttpUtil.fillBookWithParams(req);
         formedBook.setId(Long.parseLong(s));
@@ -160,12 +160,15 @@ public class BookByIdController extends HttpServlet {
 
         if(result != 0) {
             logger.debug("Book updated, redirecting to this book page");
-            req.setAttribute(AttributeName.BookToDisplayId, result);
             resp.sendRedirect("/books/id/" + result);
         } else {
-            logger.warn("Error while updating book in DB");
+            logger.warn("Error while updating book in DB. Redirecting back to the edit book page.");
+
             List<String> errors = Arrays.asList("Error while updating book in DB. Try again later.");
-            resp.sendRedirect(req.getRequestURI());
+            req.setAttribute(AttributeName.ErrorsList, errors);
+
+//            resp.sendRedirect(req.getRequestURI());
+            getServletContext().getRequestDispatcher("/jsp/BookEdit").forward(req, resp);
         }
     }
 }
