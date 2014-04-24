@@ -36,7 +36,7 @@ public class BooksDaoImpl implements com.my.dao.interfaces.BooksDao {
         Statement st = null;
         ResultSet rs = null;
 
-        List<Book> resultList = new ArrayList<Book>();
+        List<Book> resultList = new ArrayList<>();
 
         try {
 
@@ -91,7 +91,7 @@ public class BooksDaoImpl implements com.my.dao.interfaces.BooksDao {
         Statement st = null;
         ResultSet rs = null;
 
-        List<Book> resultList = new ArrayList<Book>();
+        List<Book> resultList = new ArrayList<>();
 
         try {
 

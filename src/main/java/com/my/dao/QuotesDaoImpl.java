@@ -45,7 +45,7 @@ public class QuotesDaoImpl implements com.my.dao.interfaces.QuotesDao {
                 "`quotes` " +
                 "JOIN `books` ON `quotes`.`quotes_book_id`=`books`.`books_id`";
 
-        List<Quote> resultList = new ArrayList<Quote>();
+        List<Quote> resultList = new ArrayList<>();
 
         try {
 
@@ -269,7 +269,7 @@ public class QuotesDaoImpl implements com.my.dao.interfaces.QuotesDao {
         Statement st = null;
         ResultSet rs = null;
 
-        List<Quote> resultList = new ArrayList<Quote>();
+        List<Quote> resultList = new ArrayList<>();
 
         try {
 

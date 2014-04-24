@@ -97,7 +97,7 @@ public class BookByIdController extends HttpServlet {
         Map<MessageType, String> messageMap =
                 (Map<MessageType, String>) req.getAttribute(AttributeName.MessagesMap);
         if(messageMap == null) {
-            messageMap = new TreeMap<MessageType, String>();
+            messageMap = new TreeMap<>();
         }
         messageMap.put(MessageType.Success, "Book have been deleted successfully");
         req.setAttribute(AttributeName.MessagesMap, messageMap);
