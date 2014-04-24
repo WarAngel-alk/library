@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
  */
 public class QuoteTag extends TagSupport {
 
-    protected Quote quote = null;
+    private Quote quote = null;
 
     @Override
     public int doStartTag() throws JspException {

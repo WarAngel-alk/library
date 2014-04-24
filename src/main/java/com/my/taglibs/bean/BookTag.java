@@ -18,8 +18,8 @@ import java.text.SimpleDateFormat;
  */
 public class BookTag extends TagSupport {
 
-    protected Book book = null;
-    protected boolean dontMakeLinkToBook = false;
+    private Book book = null;
+    private boolean dontMakeLinkToBook = false;
 
     @Override
     public int doStartTag() throws JspException {
