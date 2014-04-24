@@ -28,7 +28,6 @@ public class QuotesDaoImpl implements com.my.dao.interfaces.QuotesDao {
 
     private static final Logger log = Logger.getLogger(getCurrentClass());
 
-    private static final SimpleDateFormat sqlDate = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat sqlDateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     @Override
