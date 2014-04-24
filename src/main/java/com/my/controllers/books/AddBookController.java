@@ -119,7 +119,7 @@ public class AddBookController extends HttpServlet {
     }
 
     private String saveImage(String imgUrl, String dir)
-            throws MalformedURLException, IOException, ServletException {
+            throws MalformedURLException, IOException {
         String pathToFile = null;
         URL url = new URL(imgUrl);
 
