@@ -1,9 +1,5 @@
 <%@ page import="com.my.bussiness.beans.Quote" %>
-<%@ page import="com.my.dao.QuotesDao" %>
-<%@ page import="com.my.dao.BooksDao" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="com.my.enums.AttributeName" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad

@@ -45,7 +45,7 @@ public class ConnectionManager {
 
     public Connection getConnection() {
         try {
-            log.info("Getting new connection to database... ");
+            log.debug("Getting new connection to database... ");
             return dataSource.getConnection();
         } catch (SQLException e1) {
             log.error("Can not get connection to database", e1);

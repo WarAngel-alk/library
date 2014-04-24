@@ -38,8 +38,10 @@ public class EncodingFilter implements Filter {
 
     public void init(FilterConfig config) throws ServletException{
         encoding = config.getInitParameter(ENCODING_INIT_PARAM_NAME);
-        if (encoding == null)
+        if (encoding == null) {
             encoding = ENCODING_DEFAULT;
+        }
+        logger.debug("Initiate EncodingFilter. Encoding is " + encoding);
     }
 
 }

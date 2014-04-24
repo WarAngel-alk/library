@@ -1,6 +1,5 @@
 <%@ page import="com.my.bussiness.beans.Book" %>
 <%@ page import="com.my.bussiness.beans.Quote" %>
-<%@ page import="com.my.dao.BooksDaoImpl" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.List" %>
 <%--

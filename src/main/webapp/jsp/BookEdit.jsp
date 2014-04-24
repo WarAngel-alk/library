@@ -1,8 +1,6 @@
-<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.my.bussiness.beans.Book" %>
-<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.my.enums.AttributeName" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad

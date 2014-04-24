@@ -1,7 +1,4 @@
 <%@ page import="com.my.bussiness.beans.Book" %>
-<%@ page import="com.my.dao.BooksDao" %>
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="com.my.enums.AttributeName" %>
 <%--
   Created by IntelliJ IDEA.
   User: Vlad
