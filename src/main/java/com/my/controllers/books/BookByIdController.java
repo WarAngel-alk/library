@@ -52,12 +52,16 @@ public class BookByIdController extends HttpServlet {
         if (pathArray.length > 4) {
             // url like "domain.com/books/id/42/edit"
             String subPath = pathArray[4];
-            if (subPath.equals("quotes")) {
-                processShowBookQuotes(req, resp, id);
-            } else if (subPath.equals("edit")) {
-                processEditBookGet(req, resp, id);
-            } else if (subPath.equals("delete")) {
-                processDeleteBook(req, resp, id);
+            switch (subPath) {
+                case "quotes":
+                    processShowBookQuotes(req, resp, id);
+                    break;
+                case "edit":
+                    processEditBookGet(req, resp, id);
+                    break;
+                case "delete":
+                    processDeleteBook(req, resp, id);
+                    break;
             }
         } else {
             processShowBook(req, resp, id);
