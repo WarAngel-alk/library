@@ -5,6 +5,14 @@
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
 
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring-config.xml</param-value>
+    </context-param>
+
+
+
     <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>com.my.filters.EncodingFilter</filter-class>
@@ -17,6 +25,14 @@
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+
 
     <servlet>
         <servlet-name>allBooksController</servlet-name>
@@ -53,6 +69,7 @@
     </servlet>
 
 
+
     <servlet-mapping>
         <servlet-name>quoteByIdController</servlet-name>
         <url-pattern>/quotes/id/*</url-pattern>
@@ -82,6 +99,9 @@
         <servlet-name>addQuoteController</servlet-name>
         <url-pattern>/quotes/add</url-pattern>
     </servlet-mapping>
+
+
+
 
     <welcome-file-list>
         <welcome-file>books</welcome-file>

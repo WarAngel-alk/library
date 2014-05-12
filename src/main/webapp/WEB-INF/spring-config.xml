@@ -7,9 +7,6 @@
 
     <context:component-scan base-package="com.my"/>
 
-    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
-
     <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
         <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
         <!--<property name="prefix" value="/"/>-->
@@ -20,6 +17,29 @@
     <bean id="quotesDao" class="com.my.dao.QuotesDaoImpl" />
 
     <bean id="allBooksController" class="com.my.controllers.books.AllBooksController">
+        <property name="booksDao" ref="booksDao" />
+    </bean>
+
+    <bean id="addBookController" class="com.my.controllers.books.AddBookController">
+        <property name="booksDao" ref="booksDao" />
+    </bean>
+
+    <bean id="bookByIdController" class="com.my.controllers.books.BookByIdController">
+        <property name="booksDao" ref="booksDao" />
+        <property name="quotesDao" ref="quotesDao" />
+    </bean>
+
+    <bean class="com.my.controllers.quotes.AllQuotesController" id="allQuotesController">
+        <property name="quotesDao" ref="quotesDao" />
+    </bean>
+
+    <bean class="com.my.controllers.quotes.AddQuoteController" id="addQuoteController">
+        <property name="quotesDao" ref="quotesDao" />
+        <property name="booksDao" ref="booksDao" />
+    </bean>
+
+    <bean class="com.my.controllers.quotes.QuoteByIdController" id="quoteByIdController">
+        <property name="quotesDao" ref="quotesDao" />
         <property name="booksDao" ref="booksDao" />
     </bean>
 
