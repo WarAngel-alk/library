@@ -33,8 +33,8 @@ public abstract class HttpUtil {
         String strStartDate = req.getParameter("param_StartDate");
         String strEndDate = req.getParameter("param_EndDate");
 
-        if(pictureUrl == null || pictureUrl.length() == 0)  pictureUrl = null;
-        if(comment == null || comment.length() == 0)        comment = "";
+        if(pictureUrl.length() == 0)     pictureUrl = null;
+        if(comment == null)              comment = "";
 
         logger.debug("Formatting string date to Date object");
         Date startDate = null;
@@ -65,7 +65,6 @@ public abstract class HttpUtil {
         book.setAddDate(new Date());
         book.setComment(comment);
         book.setPictureUrl(pictureUrl);
-        // TODO: Why did I decided that I want to know when book was published?!
 
         return book;
     }
