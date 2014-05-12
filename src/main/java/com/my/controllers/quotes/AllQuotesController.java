@@ -1,7 +1,6 @@
 package com.my.controllers.quotes;
 
 import com.my.bussiness.beans.Quote;
-import com.my.dao.QuotesDaoImpl;
 import com.my.dao.interfaces.QuotesDao;
 import com.my.enums.AttributeName;
 import com.my.enums.Pages;
@@ -27,7 +26,7 @@ public class AllQuotesController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(getCurrentClass());
 
-    private final QuotesDao qDao = new QuotesDaoImpl();
+    private static QuotesDao quotesDao;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -37,11 +36,15 @@ public class AllQuotesController extends HttpServlet {
 
     private void processShowAllQuotes(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Requesting to QuotesDao for all quotes list");
-        List<Quote> quoteList = qDao.selectAll();
+        List<Quote> quoteList = quotesDao.selectAll();
         req.setAttribute(AttributeName.QuoteToDisplayList, quoteList);
 
         logger.info("Request redirected to AllQuotesView");
         req.setAttribute(AttributeName.CurrentPage, Pages.AllQuotes);
         getServletContext().getRequestDispatcher("/jsp/AllQuotes.jsp").forward(req, resp);
+    }
+
+    public void setQuotesDao(QuotesDao quotesDao) {
+        this.quotesDao = quotesDao;
     }
 }

@@ -1,7 +1,6 @@
 package com.my.controllers.books;
 
 import com.my.bussiness.beans.Book;
-import com.my.dao.BooksDaoImpl;
 import com.my.dao.interfaces.BooksDao;
 import com.my.enums.AttributeName;
 import com.my.enums.Pages;
@@ -26,7 +25,10 @@ import static com.my.util.LogUtil.getCurrentClass;
 public class AllBooksController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(getCurrentClass());
-    private final BooksDao bDao = new BooksDaoImpl();
+
+//    private DaoProvider daoProvider;
+
+    private static BooksDao booksDao;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -36,11 +38,16 @@ public class AllBooksController extends HttpServlet {
 
     private void processShowAllBooks(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Requesting to BooksDao for all books list");
-        List<Book> booksList = bDao.selectAll();
+        List<Book> booksList = booksDao.selectAll();
         req.setAttribute(AttributeName.BookToDisplayList, booksList);
 
         logger.info("Request redirected to AllBooksView");
         req.setAttribute(AttributeName.CurrentPage, Pages.AllBooks);
         getServletContext().getRequestDispatcher("/jsp/AllBooks.jsp").forward(req, resp);
     }
+
+    public void setBooksDao(BooksDao booksDao) {
+        this.booksDao = booksDao;
+    }
+
 }

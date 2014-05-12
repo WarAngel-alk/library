@@ -2,8 +2,6 @@ package com.my.controllers.quotes;
 
 import com.my.bussiness.beans.Book;
 import com.my.bussiness.beans.Quote;
-import com.my.dao.BooksDaoImpl;
-import com.my.dao.QuotesDaoImpl;
 import com.my.dao.interfaces.BooksDao;
 import com.my.dao.interfaces.QuotesDao;
 import com.my.enums.AttributeName;
@@ -32,8 +30,8 @@ public class AddQuoteController extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(getCurrentClass());
 
-    private final QuotesDao qDao = new QuotesDaoImpl();
-    private final BooksDao bDao = new BooksDaoImpl();
+    private static QuotesDao quotesDao;
+    private static BooksDao booksDao;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -43,7 +41,7 @@ public class AddQuoteController extends HttpServlet {
 
     private void processAddQuoteGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Requesting to BooksDao for all books simple list");
-        List<Book> booksList = bDao.selectAllSimple();
+        List<Book> booksList = booksDao.selectAllSimple();
         req.setAttribute(AttributeName.QuoteToDisplayList, booksList);
 
         logger.info("Request redirected to AddQuoteView");
@@ -59,7 +57,7 @@ public class AddQuoteController extends HttpServlet {
     private void processAddQuotePost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("Filling quote's properties with request parameters");
         Quote quote = HttpUtil.fillQuoteWithParams(req);
-        long addResult = qDao.add(quote);
+        long addResult = quotesDao.add(quote);
 
         if(addResult == 0) {
             logger.warn("Error while adding quote to DB");
@@ -69,5 +67,13 @@ public class AddQuoteController extends HttpServlet {
             logger.info("Added quote with id=" + addResult + "; redirecting to page with new quote");
             resp.sendRedirect("/quotes/id/" + addResult);
         }
+    }
+
+    public void setQuotesDao(QuotesDao quotesDao) {
+        this.quotesDao = quotesDao;
+    }
+
+    public void setBooksDao(BooksDao booksDao) {
+        this.booksDao = booksDao;
     }
 }
